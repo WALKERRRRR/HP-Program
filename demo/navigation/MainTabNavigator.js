@@ -6,19 +6,23 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import SearchScreen from '../screens/SearchScreen';
+import AlertsScreen from '../screens/AlertsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 export default TabNavigator(
   {
     Home: {
       screen: HomeScreen,
     },
-    Links: {
-      screen: LinksScreen,
+    Search: {
+      screen: SearchScreen,
     },
-    Settings: {
-      screen: SettingsScreen,
+    Alerts: {
+      screen: AlertsScreen,
+    },
+    Profile: {
+      screen: ProfileScreen,
     },
   },
   {
@@ -30,15 +34,19 @@ export default TabNavigator(
           case 'Home':
             iconName =
               Platform.OS === 'ios'
-                ? `ios-information-circle${focused ? '' : '-outline'}`
-                : 'md-information-circle';
+                ? `ios-home${focused ? '' : '-outline'}`
+                : 'md-home';
             break;
-          case 'Links':
-            iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
+          case 'Search':
+            iconName = Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search';
             break;
-          case 'Settings':
+          case 'Alerts':
             iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
+              Platform.OS === 'ios' ? `ios-warning${focused ? '' : '-outline'}` : 'md-warning';
+            break;
+          case 'Profile':
+            iconName =
+              Platform.OS === 'ios' ? `ios-body${focused ? '' : '-outline'}` : 'md-body';
         }
         return (
           <Ionicons

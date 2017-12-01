@@ -1,0 +1,11 @@
+
+<Page loaded="loaded">
+    <StackLayout orientation="vertical">
+        <Image src="~/images/top.jpeg" />
+        <TextField id = "email" hint="Email Address" keyboardType="email" autocorrect="false" autocapitalizationType="none" />
+        <TextField id = "password" hint="Password" secure="true" />
+        <Button text="Sign in" tap="signIn" />
+        <Button text="create an account" class="link" tap="register" />
+
+    </StackLayout>
+</Page>

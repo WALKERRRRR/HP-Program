@@ -23,7 +23,7 @@ export default class Login extends React.Component {
      }
      else{
        return (
-         <View>
+         <View style={styles.page}>
           <View style={{width: 20, height: 70, backgroundColor: 'white'}}/>
           <View style={{alignItems: 'center'}}>
               <Image
@@ -61,8 +61,8 @@ export default class Login extends React.Component {
 
           <View style={{width: 20, height: 30, backgroundColor: 'white'}}/>
 
-          <View style={styles.container}>
-            <Button
+          <View style={{alignItems: 'center'}}>
+            <Button style={styles.button}
               // onPress={() => {onPressLogin(this.state.username, this.state.password)}}
               onPress={() => {
                 pw = this.state.password;
@@ -74,16 +74,18 @@ export default class Login extends React.Component {
                     });
                 }
                 else {
-                  Alert.alert("Incorrect Username or Password!");
+                  Alert.alert("Incorrect Username or Password");
                 }
               }}
 
               title='Login'
-              color='white'
+              color='green'
               accessibilityLabel="Login to your account after typing in Username and Password"
             />
           </View>
+          <View style={{ width: 20, height: 300, backgroundColor: 'white' }} />
         </View>
+        
       );
     }
   }
@@ -103,10 +105,17 @@ export default class Login extends React.Component {
 // }
 
 const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+    flexDirection: 'column',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'skyblue',
   },
+  button: {
+    backgroundColor: 'green',
+    flex: 1,
+  }
 });

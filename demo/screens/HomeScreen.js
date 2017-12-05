@@ -1,189 +1,227 @@
-import React from 'react';
+/**
+ * Sample React Native App
+ * httpss://github.com/facebook/react-native
+ * @flow
+ */
+
+import React, { Component } from 'react';
 import {
-  Image,
-  Platform,
-  ScrollView,
+  Animated,
+  Easing,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  Image,
   View,
+  Dimensions,
+  Platform,
 } from 'react-native';
+import SortableList from 'react-native-sortable-list';
 import { WebBrowser } from 'expo';
 
-import { MonoText } from '../components/StyledText';
+const window = Dimensions.get('window');
 
-export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
-    title: 'Home',
-  };
+// Data will be where the system data is organized.
+const data = {
+  0: {
+    image: 'https://placekitten.com/200/240',
+    text: 'Chloe',
+  },
+  1: {
+    image: 'https://placekitten.com/200/201',
+    text: 'Jasper',
+  },
+  2: {
+    image: 'https://placekitten.com/200/202',
+    text: 'Pepper',
+  },
+  3: {
+    image: 'https://placekitten.com/200/203',
+    text: 'Oscar',
+  },
+  4: {
+    image: 'https://placekitten.com/200/204',
+    text: 'Dusty',
+  },
+  5: {
+    image: 'https://placekitten.com/200/205',
+    text: 'Spooky',
+  },
+  6: {
+    image: 'https://placekitten.com/200/210',
+    text: 'Kiki',
+  },
+  7: {
+    image: 'https://placekitten.com/200/215',
+    text: 'Smokey',
+  },
+  8: {
+    image: 'https://placekitten.com/200/220',
+    text: 'Gizmo',
+  },
+  9: {
+    image: 'https://placekitten.com/220/239',
+    text: 'Kitty',
+  },
+};
 
+export default class Basic extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
-
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
+        <Text style={styles.title}>My Systems Dashboard</Text>
+        <SortableList
+          style={styles.list}
+          contentContainerStyle={styles.contentContainer}
+          data={data}
+          renderRow={this._renderRow} />
       </View>
     );
   }
 
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
+  _renderRow = ({ data, active }) => {
+    return <Row data={data} active={active} />
+  }
+}
 
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
+class Row extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this._active = new Animated.Value(0);
+
+    this._style = {
+      ...Platform.select({
+        ios: {
+          transform: [{
+            scale: this._active.interpolate({
+              inputRange: [0, 1],
+              outputRange: [1, 1.1],
+            }),
+          }],
+          shadowRadius: this._active.interpolate({
+            inputRange: [0, 1],
+            outputRange: [2, 10],
+          }),
+        },
+
+        android: {
+          transform: [{
+            scale: this._active.interpolate({
+              inputRange: [0, 1],
+              outputRange: [1, 1.07],
+            }),
+          }],
+          elevation: this._active.interpolate({
+            inputRange: [0, 1],
+            outputRange: [2, 6],
+          }),
+        },
+      })
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.active !== nextProps.active) {
+      Animated.timing(this._active, {
+        duration: 300,
+        easing: Easing.bounce,
+        toValue: Number(nextProps.active),
+      }).start();
     }
   }
 
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
+  render() {
+    const { data, active } = this.props;
 
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
+    return (
+      <Animated.View style={[
+        styles.row,
+        this._style,
+      ]}>
+        <Image source={{ uri: data.image }} style={styles.image} />
+        <Text style={styles.text}>{data.text}</Text>
+      </Animated.View>
     );
-  };
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    backgroundColor: '#eee',
+
     ...Platform.select({
       ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
+        paddingTop: 20,
       },
     }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
+  },
+
+  title: {
+    fontSize: 20,
     paddingVertical: 20,
+    color: '#999999',
   },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
+
+  list: {
+    flex: 1,
   },
-  navigationFilename: {
-    marginTop: 5,
+
+  contentContainer: {
+    width: window.width,
+
+    ...Platform.select({
+      ios: {
+        paddingHorizontal: 30,
+      },
+
+      android: {
+        paddingHorizontal: 0,
+      }
+    })
   },
-  helpContainer: {
-    marginTop: 15,
+
+  row: {
+    flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 16,
+    height: 80,
+    flex: 1,
+    marginTop: 7,
+    marginBottom: 12,
+    borderRadius: 4,
+
+
+    ...Platform.select({
+      ios: {
+        width: window.width - 30 * 2,
+        shadowColor: 'rgba(0,0,0,0.2)',
+        shadowOpacity: 1,
+        shadowOffset: { height: 2, width: 2 },
+        shadowRadius: 2,
+      },
+
+      android: {
+        width: window.width - 30 * 2,
+        elevation: 0,
+        marginHorizontal: 30,
+      },
+    })
   },
-  helpLink: {
-    paddingVertical: 15,
+
+  image: {
+    width: 50,
+    height: 50,
+    marginRight: 30,
+    borderRadius: 25,
   },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+
+  text: {
+    fontSize: 24,
+    color: '#222222',
   },
 });

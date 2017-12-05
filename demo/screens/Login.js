@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
-import {AppRegisty, Alert, Text, TextInput, View, Image, StyleSheet, Button } from 'react-native';
+import { AppRegisty, Alert, Text, TextInput, View, Image, Platform, StyleSheet, Button } from 'react-native';
 import RootNavigation from '../navigation/RootNavigation';
 
 export default class Login extends React.Component {

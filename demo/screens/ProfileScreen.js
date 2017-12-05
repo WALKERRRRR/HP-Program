@@ -107,21 +107,6 @@ export default class ProfileScreen extends React.Component {
             </View>
           </Touchable>
 
-          <Touchable
-            style={styles.option}
-            background={Touchable.Ripple('#ccc', false)}
-            onPress={this._handlePressExport}>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={styles.optionIconContainer}>
-                <Ionicons name="ios-chatboxes" size={22} color="#ccc" />
-              </View>
-              <View style={styles.optionTextContainer}>
-                <Text style={styles.optionText}>
-                  Example
-                </Text>
-              </View>
-            </View>
-          </Touchable>
         </View>
       </View>
     </ScrollView>

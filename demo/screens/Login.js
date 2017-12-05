@@ -79,7 +79,7 @@ export default class Login extends React.Component {
               }}
 
               title='Login'
-              color='green'
+              color = {Platform.OS === 'ios' ? 'green' : 'white'}
               accessibilityLabel="Login to your account after typing in Username and Password"
             />
           </View>

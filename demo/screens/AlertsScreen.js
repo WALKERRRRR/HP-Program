@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { AppRegistry, SectionList, StyleSheet, Text, View } from 'react-native';
-import PushNotificationAndroid from 'react-native-push-notification';
 
 export default class SectionListBasics extends Component {
   render() {

@@ -14,112 +14,133 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     return (
-      //<ScrollView style={styles.container}>
-      //   {/* Go ahead and delete ExpoLinksView and replace it with your
-      //      * content, we just wanted to provide you with some helpful links */}
-      //
-      <View>
-      <View style={styles.titleIconContainer}>
-          <Image
-            source={{ uri: 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png' }}
-            style={{ width: 128, height: 128 }}
-            resizeMode="cover"
-          />
-      </View>
-      <View style={styles.titleContainer}>
-        <View style={styles.titleTextContainer}>
-          <View style={styles.centerText}>
-            <Text style={styles.nameText} numberOfLines={1}>
-              {"Username2"}
-            </Text>
-          </View>
-
-          <View style={styles.centerText}>
-            <Text style={styles.slugText} numberOfLines={1}>
-              {"slug"}
-            </Text>
-          </View>
-
-          <View style={styles.centerText}>
-            <Text style={styles.descriptionText}>
-              {"User desc"}
-            </Text>
+      <ScrollView style={styles.container}>
+        <View>
+        <View style={styles.titleIconContainer}>
+            <Image
+              source={{ uri: 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png' }}
+              style={{ width: 128, height: 128 }}
+              resizeMode="cover"
+            />
+        </View>
+        <View style={styles.titleContainer}>
+          <View style={styles.titleTextContainer}>
+            <View style={styles.centerText}>
+              <Text style={styles.nameText} numberOfLines={1}>
+                {"Username"}
+              </Text>
+            </View>
           </View>
         </View>
+
+        <View>
+          <Touchable
+            style={styles.option}
+            background={Touchable.Ripple('#ccc', false)}
+            onPress={this._handlePressConfig}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.optionIconContainer}>
+                <Image
+                  source={{ uri: 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png' }}
+                  resizeMode="contain"
+                  fadeDuration={0}
+                  style={{ width: 20, height: 20, marginTop: 1 }}
+                />
+              </View>
+              <View style={styles.optionTextContainer}>
+                <Text style={styles.optionText}>
+                  Dashboard Configuration
+                </Text>
+              </View>
+            </View>
+          </Touchable>
+
+          <Touchable
+            background={Touchable.Ripple('#ccc', false)}
+            style={styles.option}
+            onPress={this._handlePressExport}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.optionIconContainer}>
+                <Image
+                  source={{ uri: 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png' }}
+                  fadeDuration={0}
+                  style={{ width: 20, height: 20 }}
+                />
+              </View>
+              <View style={styles.optionTextContainer}>
+                <Text style={styles.optionText}>
+                  Dashboard Export
+                </Text>
+              </View>
+            </View>
+          </Touchable>
+
+          <Touchable
+            style={styles.option}
+            background={Touchable.Ripple('#ccc', false)}
+            onPress={this._handlePressCngPass}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.optionIconContainer}>
+                <Ionicons name="ios-chatboxes" size={22} color="#ccc" />
+              </View>
+              <View style={styles.optionTextContainer}>
+                <Text style={styles.optionText}>
+                  Change Password
+                </Text>
+              </View>
+            </View>
+          </Touchable>
+
+          <Touchable
+            style={styles.option}
+            background={Touchable.Ripple('#ccc', false)}
+            onPress={this._handlePressLogout}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.optionIconContainer}>
+                <Ionicons name="ios-chatboxes" size={22} color="#ccc" />
+              </View>
+              <View style={styles.optionTextContainer}>
+                <Text style={styles.optionText}>
+                  Logout
+                </Text>
+              </View>
+            </View>
+          </Touchable>
+
+          <Touchable
+            style={styles.option}
+            background={Touchable.Ripple('#ccc', false)}
+            onPress={this._handlePressExport}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={styles.optionIconContainer}>
+                <Ionicons name="ios-chatboxes" size={22} color="#ccc" />
+              </View>
+              <View style={styles.optionTextContainer}>
+                <Text style={styles.optionText}>
+                  Example
+                </Text>
+              </View>
+            </View>
+          </Touchable>
+        </View>
       </View>
-
-      <View>
-        <Touchable
-          style={styles.option}
-          background={Touchable.Ripple('#ccc', false)}
-          onPress={this._handlePressDocs}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.optionIconContainer}>
-              <Image
-                source={{ uri: 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png' }}
-                resizeMode="contain"
-                fadeDuration={0}
-                style={{ width: 20, height: 20, marginTop: 1 }}
-              />
-            </View>
-            <View style={styles.optionTextContainer}>
-              <Text style={styles.optionText}>
-                Read the Expo documentation
-              </Text>
-            </View>
-          </View>
-        </Touchable>
-
-        <Touchable
-          background={Touchable.Ripple('#ccc', false)}
-          style={styles.option}
-          onPress={this._handlePressSlack}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.optionIconContainer}>
-              <Image
-                source={{ uri: 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png' }}
-                fadeDuration={0}
-                style={{ width: 20, height: 20 }}
-              />
-            </View>
-            <View style={styles.optionTextContainer}>
-              <Text style={styles.optionText}>
-                Join us on Slack
-              </Text>
-            </View>
-          </View>
-        </Touchable>
-
-        <Touchable
-          style={styles.option}
-          background={Touchable.Ripple('#ccc', false)}
-          onPress={this._handlePressForums}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.optionIconContainer}>
-              <Ionicons name="ios-chatboxes" size={22} color="#ccc" />
-            </View>
-            <View style={styles.optionTextContainer}>
-              <Text style={styles.optionText}>
-                Ask a question on the Expo forums
-              </Text>
-            </View>
-          </View>
-        </Touchable>
-      </View>
-    </View>
-    //</ScrollView>
+    </ScrollView>
     );
 
 
-    _handlePressSlack = () => {
+    _handlePressConfig = () => {
       WebBrowser.openBrowserAsync('https://slack.expo.io');
     };
 
-    _handlePressDocs = () => {
+    _handlePressExport = () => {
       WebBrowser.openBrowserAsync('http://docs.expo.io');
     };
 
-    _handlePressForums = () => {
+    _handlePressCngPass = () => {
+      WebBrowser.openBrowserAsync('http://forums.expo.io');
+    };
+
+    _handlePressLogout = () => {
       WebBrowser.openBrowserAsync('http://forums.expo.io');
     };
   }
@@ -169,16 +190,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
 
   },
-  slugText: {
-    color: '#a39f9f',
-    fontSize: 14,
-    backgroundColor: 'transparent',
-  },
-  descriptionText: {
-    fontSize: 14,
-    marginTop: 6,
-    color: '#4d4d4d',
-  },
   colorContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -204,7 +215,7 @@ const styles = StyleSheet.create({
     marginRight: 9,
   },
   option: {
-    backgroundColor: '#fdfdfd',
+    backgroundColor: '#ededed',
     paddingHorizontal: 15,
     paddingVertical: 15,
     marginBottom: 10,

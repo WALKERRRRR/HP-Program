@@ -19,27 +19,32 @@ export default class ProfileScreen extends React.Component {
       //      * content, we just wanted to provide you with some helpful links */}
       //
       <View>
+      <View style={styles.titleIconContainer}>
+          <Image
+            source={{ uri: 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png' }}
+            style={{ width: 128, height: 128 }}
+            resizeMode="cover"
+          />
+      </View>
       <View style={styles.titleContainer}>
-        <View style={styles.titleIconContainer}>
-            <Image
-              source={{ uri: 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png' }}
-              style={{ width: 64, height: 64 }}
-              resizeMode="cover"
-            />
-        </View>
-
         <View style={styles.titleTextContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
-            {"Username"}
-          </Text>
+          <View style={styles.centerText}>
+            <Text style={styles.nameText} numberOfLines={1}>
+              {"Username2"}
+            </Text>
+          </View>
 
-          <Text style={styles.slugText} numberOfLines={1}>
-            {"slug"}
-          </Text>
+          <View style={styles.centerText}>
+            <Text style={styles.slugText} numberOfLines={1}>
+              {"slug"}
+            </Text>
+          </View>
 
-          <Text style={styles.descriptionText}>
-            {"User desc"}
-          </Text>
+          <View style={styles.centerText}>
+            <Text style={styles.descriptionText}>
+              {"User desc"}
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -127,13 +132,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   titleContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 15,
     paddingTop: 15,
     paddingBottom: 15,
     flexDirection: 'row',
   },
   titleIconContainer: {
-    marginRight: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
     paddingTop: 2,
   },
   sectionHeaderContainer: {
@@ -158,6 +167,7 @@ const styles = StyleSheet.create({
   nameText: {
     fontWeight: '600',
     fontSize: 18,
+
   },
   slugText: {
     color: '#a39f9f',
@@ -197,6 +207,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fdfdfd',
     paddingHorizontal: 15,
     paddingVertical: 15,
+    marginBottom: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#EDEDED',
   },
@@ -204,4 +215,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: 1,
   },
+  centerText: {
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  }
 });

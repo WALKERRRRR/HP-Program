@@ -18,7 +18,7 @@ export default TabNavigator(
     Search: {
       screen: SearchScreen,
     },
-    Alerts: { 
+    Alerts: {
       screen: AlertsScreen,
     },
     Profile: {
@@ -30,7 +30,6 @@ export default TabNavigator(
       tabBarIcon: ({ focused }) => {
         const { routeName } = navigation.state;
         let iconName;
-        // Available Icons Reference: https://oblador.github.io/react-native-vector-icons/
         switch (routeName) {
           case 'Home':
             iconName =

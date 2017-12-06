@@ -2,6 +2,8 @@ import { Notifications } from 'expo';
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
+import ExportScreen from '../screens/ExportScreen';
+import LoginScreen from '../screens/Login';
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
@@ -10,6 +12,12 @@ const RootStackNavigator = StackNavigator(
     Main: {
       screen: MainTabNavigator,
     },
+    Export: {
+      screen: ExportScreen,
+    },
+    // Login: {
+    //   screen: LoginScreen,
+    // },
   },
   {
     navigationOptions: () => ({

@@ -39,7 +39,7 @@ import '../data/data.js';
 
 const window = Dimensions.get('window');
 
-// Data will be where the system data is organized.
+// listData will be where the system data is organized.
 const listData = {
   0: {
     image: 'https://placekitten.com/200/240',
@@ -92,11 +92,14 @@ export default class Basic extends Component {
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
           data={listData}
-          renderRow={this._renderRow} />
+          renderRow={this._renderRow} 
+          onPressRow={this._displayModal}/>
       </View>
     );
   }
-
+  _displayModal = (key) => {
+    return
+  }
   _renderRow = ({ data, active }) => {
     return <Row data={data} active={active} />
   }

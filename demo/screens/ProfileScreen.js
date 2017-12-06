@@ -75,24 +75,9 @@ export default class ProfileScreen extends React.Component {
             </View>
           </Touchable>
 
-          <Touchable
-            style={styles.option}
-            background={Touchable.Ripple('#ccc', false)}
-            onPress={this._handlePressCngPass}>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={styles.optionIconContainer}>
-                <Ionicons name="ios-chatboxes" size={22} color="#ccc" />
-              </View>
-              <View style={styles.optionTextContainer}>
-                <Text style={styles.optionText}>
-                  Change Password
-                </Text>
-              </View>
-            </View>
-          </Touchable>
 
           <Touchable
-            style={styles.option}
+            style={styles.optionLogout}
             background={Touchable.Ripple('#ccc', false)}
             onPress={this._handlePressLogout}>
             <View style={{ flexDirection: 'row' }}>
@@ -114,15 +99,11 @@ export default class ProfileScreen extends React.Component {
 
 
     _handlePressConfig = () => {
-      WebBrowser.openBrowserAsync('https://slack.expo.io');
+      Expo.WebBrowser.openBrowserAsync('https://slack.expo.io');
     };
 
     _handlePressExport = () => {
       WebBrowser.openBrowserAsync('http://docs.expo.io');
-    };
-
-    _handlePressCngPass = () => {
-      WebBrowser.openBrowserAsync('http://forums.expo.io');
     };
 
     _handlePressLogout = () => {
@@ -206,6 +187,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#EDEDED',
+    marginLeft: 10,
+    marginRight: 10,
   },
   optionText: {
     fontSize: 15,
@@ -215,5 +198,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
 
-  }
+  },
+  optionLogout: {
+      backgroundColor: '#4682b4',
+      paddingHorizontal: 15,
+      paddingVertical: 15,
+      marginBottom: 10,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: '#EDEDED',
+      marginLeft: 60,
+      marginRight: 60,
+      marginTop:30,
+  },
 });

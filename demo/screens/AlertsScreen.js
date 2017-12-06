@@ -31,14 +31,12 @@ export default class SectionListBasics extends Component {
    }
  }
 
-
-
   render() {
     return (
       <View style={styles.container}>
         <Touchable
           style={styles.optionUrgent}
-          background={Touchable.Ripple('#ccc', false)}
+          background={Touchable.Ripple('#ea4355', true)}
           onPress={() => {
             if(signUrgent === "+"){
               signUrgent = "-";
@@ -53,14 +51,14 @@ export default class SectionListBasics extends Component {
           }}>
           <View style={{ flexDirection: 'row' }}>
           <View style={styles.optionIconContainer}>
-            <Ionicons name="ios-warning" size={25} color="#ff0000" />
+            <Ionicons name="ios-warning" size={25} color="#ea4355" />
           </View>
             <Text style={styles.titleText}>Urgent Alerts ({dataUrgent.length})</Text>
             <Text style={styles.signText}> ({signUrgent}) </Text>
             </View>
         </Touchable>
         <View style={urgentHider()}>
-        <SectionList id="urgentSection" style={styles.sectionStyle}
+        <SectionList style={styles.sectionStyle}
           sections={[
             {data: dataUrgent},
           ]}
@@ -71,7 +69,7 @@ export default class SectionListBasics extends Component {
 
         <Touchable
           style={styles.optionCaution}
-          background={Touchable.Ripple('#ccc', false)}
+          background={Touchable.Ripple('#fbbc05', true)}
           onPress={() => {
             if(signCaution === "+"){
               signCaution = "-";
@@ -84,7 +82,7 @@ export default class SectionListBasics extends Component {
           }}>
           <View style={{ flexDirection: 'row' }}>
           <View style={styles.optionIconContainer}>
-            <Ionicons name="ios-warning" size={25} color="#EAEA14" />
+            <Ionicons name="ios-warning" size={25} color="#fbbc05" />
           </View>
             <Text style={styles.titleText}>Caution Alerts ({dataCaution.length})</Text>
             <Text style={styles.signText}> ({signCaution}) </Text>
@@ -101,7 +99,7 @@ export default class SectionListBasics extends Component {
         </View>
         <Touchable
           style={styles.optionNeutral}
-          background={Touchable.Ripple('#ccc', false)}
+          background={Touchable.Ripple('#34a853', true)}
           onPress={() => {
             if(signNeutral === "+"){
               signNeutral = "-";
@@ -114,7 +112,7 @@ export default class SectionListBasics extends Component {
           }}>
           <View style={{ flexDirection: 'row' }}>
           <View style={styles.optionIconContainer}>
-            <Ionicons name="ios-warning" size={25} color="#00FF00" />
+            <Ionicons name="ios-warning" size={25} color="#34a853" />
           </View>
           	<Text style={styles.titleText}>Neutral Alerts ({dataNeutral.length})</Text>
           	<Text style={styles.signText}> ({signNeutral}) </Text>
@@ -134,7 +132,7 @@ export default class SectionListBasics extends Component {
   }
 }
 
-urgentHider = function(options) {
+urgentHider = function() {
    return {
      height: hideUrgent(),
    }
@@ -149,7 +147,7 @@ function hideUrgent(){
   }
 }
 
-cautionHider = function(options) {
+cautionHider = function() {
    return {
      height: hideCaution(),
    }
@@ -164,7 +162,7 @@ function hideCaution(){
   }
 }
 
-neutralHider = function(options) {
+neutralHider = function() {
    return {
      height: hideNeutral(),
    }
@@ -184,7 +182,7 @@ const styles = StyleSheet.create({
    flex:1,
   },
   sectionStyle:{
-    minHeight: 0,
+    flex:1,
   },
   titleText:{
     fontSize: 18,

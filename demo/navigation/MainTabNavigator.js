@@ -23,6 +23,7 @@ export default TabNavigator(
     },
     Profile: {
       screen: ProfileScreen,
+      //screen: <ProfileScreen navigator={navigator}/>
     },
   },
   {

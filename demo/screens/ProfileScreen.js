@@ -10,14 +10,18 @@ import RootNavigation from '../navigation/RootNavigation';
 import ExportScreen from './ExportScreen';
 import LoginScreen from './Login';
 import { StackNavigator } from 'react-navigation';
+import { NavigationActions } from 'react-navigation'
 
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
     title: 'Profile',
   };
 
+
   render() {
     const { navigate } = this.props.navigation;
+    const { navigation, screenProps } = this.props;
+
     return (
 
       <ScrollView style={styles.container}>
@@ -85,7 +89,9 @@ export default class ProfileScreen extends React.Component {
           <Touchable
             style={styles.optionLogout}
             background={Touchable.Ripple('#ccc', false)}
-            onPress={() => <ExportScreen />}>
+            onPress={() => {
+              this.props.screenProps.rootNavigation.navigate('Login')
+            }}>
             <View style={{ flexDirection: 'row' }}>
               <View style={[styles.optionTextContainer, {
                 flex: 1,

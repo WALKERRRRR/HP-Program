@@ -3,6 +3,7 @@ import { ExpoConfigView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
 import { AppRegisty, Alert, Text, TextInput, View, Image, Platform, StyleSheet, Button } from 'react-native';
 import RootNavigation from '../navigation/RootNavigation';
+import { StackNavigator } from 'react-navigation';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -17,13 +18,9 @@ export default class Login extends React.Component {
 
 
      if(this.state.correctInformation == true){
-      return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-          <RootNavigation />
-        </View>
-      );
+       return(
+         <RootNavigation />
+       );
      }
      else{
        return (
@@ -89,7 +86,7 @@ export default class Login extends React.Component {
           </View>
           <View style={{ width: 20, height: 300, backgroundColor: 'white' }} />
         </View>
-        
+
       );
     }
   }

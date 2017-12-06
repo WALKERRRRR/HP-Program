@@ -12,81 +12,59 @@ export default class LinksScreen extends React.Component {
 
   state: {
     query: String,
-    tableHead: [],
-    tableTitle: [],
-    tableData: [],
-    toSearch: [],
   }
   
   constructor(props) {
     super(props);
     this.state = {
       query: ' ',
-      tableHead: ['companyName','systemName','serialNumber','productFamily','model','osVersion','cpgCount','recommended.osVersion','location.region','location.country','installDate'],
-      tableTitle: ['System 1', 'System 2'],
-      tableData: [
-        ['1', '2', '3', '4','5', '6','7','8','9','0','10','11'],
-        ['a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
-      ],
-      toSearch: global.data,
     };
   }
 
-  handleSearch = (text) => {
-    this.setState({ query: text });
-    tT = [];
-    tD = [];
-    tS = this.state.toSearch;
-    tT = ["One System"];
-    tD = [
-      ['1', '2', '3', '4', '5', '6','7','8','9','0','10','11'],
-      ['2', '4', '4', '2', '6', '6','4','6','2','8','3','45'],
-    ];
-    filtered = tS.filter(sys => sys["serialNumber"] > 0);
-    tT = filtered.map((sys) => sys["cpgCount"]);
-    tD = filtered.map(sys => [sys["companyName"],sys["systemName"],sys["serialNumber"],sys["productFamily"],sys["model"],sys["osVersion"],sys["cpgCount"],sys["recommended.osVersion"],sys["location.region"],sys["location.country"],sys["installDate"]]);
-    this.setState({ tableTitle: tT});
-    this.setState({ tableData: tD});
-  }
-
   
-
   render() {
-        widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
 
+    tableHead = ['companyName', 'systemName', 'serialNumber','productFamily','model','osVersion','cpgCount','recommended.osVersion','location.region','location.country','installDate', 'updated'];
+    
+    toProcess = global.data;
+    tableData = toProcess.map(elem => [elem['companyName'], elem['systemName'], elem['serialNumber'],elem['productFamily'],elem['model'],elem['osVersion'],elem['cpgCount'],elem['recommended.osVersion'],elem['location.region'],elem['location.country'],elem['installDate'], elem['updated']]);
+    
+    widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
+    var query = this.state.query;
+    var filteredTableData = query = '' ? tableData : tableData.filter(row=> row.some(elem => elem.includes(query)));
     return (
         <View>
         <SearchBar
-        onChangeText = {this.handleSearch}
+        onChangeText = {(query) => this.setState({query})}
         placeholder='Search'/>
-        <Text> {' ' + this.state.query+ ' '} </Text>
-
-
+        
+        <ScrollView>
         <Table style={styles.table}>
           {/* Left Wrapper */}
           <TableWrapper style={{width: 80}}>
-            <Cell data= {''+ this.state.query+ ''} style={styles.head} textStyle={styles.headText}/>
+            <Cell data= {'checkBox here?'} style={styles.head} textStyle={styles.headText}/>
             {
-              this.state.tableTitle.map((title, i) => (
-                <Cell key={i} data={title} height={28} style={i%2 && {backgroundColor: '#DFF5F2'}} textStyle={styles.titleText}/>
+              filteredTableData.map((row, i) => (
+                <Cell key={i} data={row[3]} height={28} style={i%2 && {backgroundColor: '#DFF5F2'}} textStyle={styles.titleText}/>
               ))
             }
           </TableWrapper>
  
           {/* Right scrollview Wrapper */}
-          <ScrollView horizontal={true} vertical={true}>
+          <ScrollView horizontal={true}>
             {/* If parent element is not table element, you should add the type of borderstyle. */}
-            <TableWrapper borderStyle={{borderWidth: 1,borderColor: '#000',}}>
-              <Row data={this.state.tableHead} style={styles.head} textStyle={styles.headText} widthArr={widthArr}/>
+            <TableWrapper borderStyle={{borderWidth: 0,borderColor: '#000',}}>
+              <Row data={tableHead} style={styles.head} textStyle={styles.headText} widthArr={widthArr}/>
               {
-                this.state.tableData.map((data, i) => (
+                filteredTableData.map((data, i) => (
                   <Row key={i} data={data} style={[styles.list, i%2 && {backgroundColor: '#DFF5F2'}]} widthArr={widthArr} textStyle={styles.listText}/>
                 ))
               }
             </TableWrapper>
           </ScrollView>
         </Table>
-
+        <View style={{width: 50, height: 55}} />
+        </ScrollView>
 
         </View>
         );

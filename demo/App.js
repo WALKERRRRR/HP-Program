@@ -24,10 +24,10 @@ export default class App extends React.Component {
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-          <RootNavigation />
+          <Login />
         </View>
       );
-      /*TODO: Change to <Login /> after Development*/
+      /*TODO: Change <Login /> to <RootNavigation /> to remove Login page from automatically opening.*/
     }
   }
 

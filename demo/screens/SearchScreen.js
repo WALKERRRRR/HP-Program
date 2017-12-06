@@ -1,8 +1,9 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Button} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
@@ -11,59 +12,87 @@ export default class LinksScreen extends React.Component {
 
   state: {
     toChange: String,
+
   }
   
   constructor(props) {
     super(props);
     this.state = {
-      toChange: ' ',
+      toChange: '',
     };
   }
 
+
   render() {
-    const tableHead = ['companyName','systemName','serialNumber','productFamily','model','osVersion','cpgCount','recommended.osVersion','location.region','location.country','installDate'];
-    const tableTitle = ['System 1','System 2'];
-    const tableData = [
-      ['1', '2', '3', '4','5', '6','7','8','9','0','10','11'],
-      ['a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
-    ];
-        const widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
+
+     tableHead = ['systemName', 'companyName', 'serialNumber','productFamily','model','osVersion','cpgCount','recommended.osVersion','location.region','location.country','installDate', 'updated'];
+     tableTitle = ['Ricadonna','System 2','Ricadonna','System 2','Ricadonna','System 2','Ricadonna','System 2','Ricadonna','System 2','Ricadonna','System 2','Ricadonna','System 2','Ricadonna','System 2','Ricadonna','System 2','Ricadonna','lolol'];
+     tableData = [
+      ['Ricadonna', 'Frenzy','1', '7000','7200' , '3.2.2.612 ', '(MU4)',' 45', 'Americas' , 'US' , '2014-03-12T16:45:27Z ', '2017-09-20T09:30:13Z'],
+      ['System 2' ,'a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['Ricadonna','a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['System 2' ,'a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['Ricadonna','a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['System 2' ,'a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['Ricadonna','a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['System 2' ,'a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['Ricadonna','a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['System 2' ,'a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['Ricadonna','Frenzy','1', '7000','7200' , '3.2.2.612 ', '(MU4)',' 45', 'Americas' , 'US' , '2014-03-12T16:45:27Z ', '2017-09-20T09:30:13Z'],
+      ['System 2' ,'a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['Ricadonna','a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['System 2' ,'a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['Ricadonna','a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['System 2' ,'a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['Ricadonna','a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['System 2' ,'a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['Ricadonna','a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+      ['lolol','a', 'b', 'c', 'd','e','f','g','i','j','k','l','m','n','o'],
+    ] ;
+    widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
+    var toChange = this.state.toChange;
+    var filteredTableData = toChange == '' ? tableData : tableData.filter(row=> row.some(elem => elem.includes(toChange)));
 
     return (
         <View>
         <SearchBar
         onChangeText={(toChange) => this.setState({toChange})}
         placeholder='Search'/>
-        <Text> {' ' + this.state.toChange+ ' '} </Text>
 
-
+        <ScrollView>
         <Table style={styles.table}>
           {/* Left Wrapper */}
           <TableWrapper style={{width: 80}}>
-            <Cell data="Head" style={styles.head} textStyle={styles.headText}/>
+            <Cell data="System Name" style={styles.head} textStyle={styles.headText}/>
             {
-              tableTitle.map((title, i) => (
-                <Cell key={i} data={title} height={28} style={i%2 && {backgroundColor: '#DFF5F2'}} textStyle={styles.titleText}/>
+              filteredTableData.map((row, i) => (
+                <Cell key={i} data={row[0]} height={28} style={i%2 && {backgroundColor: '#DFF5F2'}} textStyle={styles.titleText}/>
               ))
             }
           </TableWrapper>
  
           {/* Right scrollview Wrapper */}
           <ScrollView horizontal={true}>
+            
             {/* If parent element is not table element, you should add the type of borderstyle. */}
-            <TableWrapper borderStyle={{borderWidth: 1,borderColor: '#000',}}>
+            <TableWrapper borderStyle={{borderWidth: 0,borderColor: '#000',}}>
               <Row data={tableHead} style={styles.head} textStyle={styles.headText} widthArr={widthArr}/>
               {
-                tableData.map((data, i) => (
+                filteredTableData.map((data, i) => (
                   <Row key={i} data={data} style={[styles.list, i%2 && {backgroundColor: '#DFF5F2'}]} widthArr={widthArr} textStyle={styles.listText}/>
                 ))
               }
             </TableWrapper>
-          </ScrollView>
+            </ScrollView>
+
+
         </Table>
+        <View style={{width: 50, height: 55}} />
+        </ScrollView>
 
 
         </View>
+
         );
   }
 }
@@ -74,7 +103,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#fff',
   },
-  table: { width: 360, flexDirection: 'row' },
+  table: { width: 360, flexDirection: 'row'},
   head: { backgroundColor: '#333', height: 40 },
   headText: { color: '#fff', textAlign: 'center' },
   titleText: { marginLeft: 6 },

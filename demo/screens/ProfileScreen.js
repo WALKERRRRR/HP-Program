@@ -5,6 +5,7 @@ import { Constants } from 'expo';
 import { WebBrowser } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import Touchable from 'react-native-platform-touchable';
+import MainTabNavigator from '../navigation/MainTabNavigator';
 
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {

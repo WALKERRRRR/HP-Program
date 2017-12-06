@@ -184,7 +184,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#EDEDED',
     marginLeft: 10,
     marginRight: 10,
-    borderRadius:7,
   },
   optionText: {
     fontSize: 15,
@@ -208,7 +207,6 @@ const styles = StyleSheet.create({
       borderBottomColor: '#EDEDED',
       marginLeft: 60,
       marginRight: 60,
-      marginTop: 30,
-      borderRadius: 7,
+      marginTop:30,
   },
 });

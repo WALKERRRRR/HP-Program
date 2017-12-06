@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
      borderWidth: 1,
      marginLeft: 40,
      marginRight: 40,
-     borderRadius: 7,
   },
   optionText: {
     textAlign: 'center',
@@ -93,8 +92,7 @@ const styles = StyleSheet.create({
       borderBottomColor: '#EDEDED',
       marginLeft: 80,
       marginRight: 80,
-      marginTop: 30,
-      borderRadius: 7,
+      marginTop:30,
   },
 
 });

@@ -45,11 +45,6 @@ export default class LinksScreen extends React.Component {
           {/* Left Wrapper */}
           <TableWrapper style={{width: 80}}>
             <Cell data= {'Dashboard Toggle'} style={styles.head} textStyle={styles.headText}/>
-            {
-              filteredTableData.map((row, i) => (
-                <Button onPress = {console.log('button clicked')}  title="Some button" />
-              ))
-            }
           </TableWrapper>
  
           {/* Right scrollview Wrapper */}

@@ -5,15 +5,21 @@ import { Constants } from 'expo';
 import { WebBrowser } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import Touchable from 'react-native-platform-touchable';
+import MainTabNavigator from '../navigation/MainTabNavigator';
+import RootNavigation from '../navigation/RootNavigation';
+import ExportScreen from './ExportScreen';
+import LoginScreen from './Login';
+import { StackNavigator } from 'react-navigation';
 
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
     title: 'Profile',
   };
 
-
   render() {
+    const { navigate } = this.props.navigation;
     return (
+
       <ScrollView style={styles.container}>
         <View>
         <View style={styles.titleIconContainer}>
@@ -37,7 +43,7 @@ export default class ProfileScreen extends React.Component {
           <Touchable
             style={styles.option}
             background={Touchable.Ripple('#ccc', false)}
-            onPress={this._handlePressConfig}>
+            onPress={() => navigate('Export')}>
             <View style={{ flexDirection: 'row' }}>
               <View style={styles.optionIconContainer}>
                 <Image
@@ -58,7 +64,7 @@ export default class ProfileScreen extends React.Component {
           <Touchable
             background={Touchable.Ripple('#ccc', false)}
             style={styles.option}
-            onPress={this._handlePressExport}>
+            onPress={() => navigate('Export')}>
             <View style={{ flexDirection: 'row' }}>
               <View style={styles.optionIconContainer}>
                 <Image
@@ -75,32 +81,18 @@ export default class ProfileScreen extends React.Component {
             </View>
           </Touchable>
 
-          <Touchable
-            style={styles.option}
-            background={Touchable.Ripple('#ccc', false)}
-            onPress={this._handlePressCngPass}>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={styles.optionIconContainer}>
-                <Ionicons name="ios-chatboxes" size={22} color="#ccc" />
-              </View>
-              <View style={styles.optionTextContainer}>
-                <Text style={styles.optionText}>
-                  Change Password
-                </Text>
-              </View>
-            </View>
-          </Touchable>
 
           <Touchable
-            style={styles.option}
+            style={styles.optionLogout}
             background={Touchable.Ripple('#ccc', false)}
-            onPress={this._handlePressLogout}>
+            onPress={() => <ExportScreen />}>
             <View style={{ flexDirection: 'row' }}>
-              <View style={styles.optionIconContainer}>
-                <Ionicons name="ios-chatboxes" size={22} color="#ccc" />
-              </View>
-              <View style={styles.optionTextContainer}>
-                <Text style={styles.optionText}>
+              <View style={[styles.optionTextContainer, {
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center'}
+              ]}>
+                <Text style={styles.logoutText}>
                   Logout
                 </Text>
               </View>
@@ -112,22 +104,6 @@ export default class ProfileScreen extends React.Component {
     </ScrollView>
     );
 
-
-    _handlePressConfig = () => {
-      WebBrowser.openBrowserAsync('https://slack.expo.io');
-    };
-
-    _handlePressExport = () => {
-      WebBrowser.openBrowserAsync('http://docs.expo.io');
-    };
-
-    _handlePressCngPass = () => {
-      WebBrowser.openBrowserAsync('http://forums.expo.io');
-    };
-
-    _handlePressLogout = () => {
-      WebBrowser.openBrowserAsync('http://forums.expo.io');
-    };
   }
 
 }
@@ -206,14 +182,33 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#EDEDED',
+    marginLeft: 10,
+    marginRight: 10,
+    borderRadius:7,
   },
   optionText: {
     fontSize: 15,
     marginTop: 1,
   },
+  logoutText: {
+    color: '#ffffff',
+    fontSize: 20,
+    marginTop: 1,
+  },
   centerText: {
     justifyContent: 'center',
     alignItems: 'center',
-
-  }
+  },
+  optionLogout: {
+      backgroundColor: '#4682b4',
+      paddingHorizontal: 15,
+      paddingVertical: 15,
+      marginBottom: 10,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: '#EDEDED',
+      marginLeft: 60,
+      marginRight: 60,
+      marginTop: 30,
+      borderRadius: 7,
+  },
 });

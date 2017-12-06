@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, View, Button} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import '../data/data.js'
 
 
 export default class LinksScreen extends React.Component {
@@ -11,13 +12,18 @@ export default class LinksScreen extends React.Component {
   };
 
   state: {
+<<<<<<< HEAD
     toChange: String,
 
+=======
+    query: String,
+>>>>>>> 1fdc48691b5c1b6c3e44f621a621443b5bffecf3
   }
   
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       toChange: '',
     };
   }
@@ -52,21 +58,48 @@ export default class LinksScreen extends React.Component {
     widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
     var toChange = this.state.toChange;
     var filteredTableData = toChange == '' ? tableData : tableData.filter(row=> row.some(elem => elem.includes(toChange)));
+=======
+      query: ' ',
+    };
+  }
 
+  
+  render() {
+>>>>>>> 1fdc48691b5c1b6c3e44f621a621443b5bffecf3
+
+    tableHead = ['companyName', 'systemName', 'serialNumber','productFamily','model','osVersion','cpgCount','recommended.osVersion','location.region','location.country','installDate', 'updated'];
+    
+    toProcess = global.data;
+    tableData = toProcess.map(elem => [elem['companyName'], elem['systemName'], elem['serialNumber'],elem['productFamily'],elem['model'],elem['osVersion'],elem['cpgCount'],elem['recommended.osVersion'],elem['location.region'],elem['location.country'],elem['installDate'], elem['updated']]);
+    
+    widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
+    var query = this.state.query;
+    var filteredTableData = query = '' ? tableData : tableData.filter(row=> row.some(elem => elem.includes(query)));
     return (
         <View>
         <SearchBar
-        onChangeText={(toChange) => this.setState({toChange})}
+        onChangeText = {(query) => this.setState({query})}
         placeholder='Search'/>
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 1fdc48691b5c1b6c3e44f621a621443b5bffecf3
         <ScrollView>
         <Table style={styles.table}>
           {/* Left Wrapper */}
           <TableWrapper style={{width: 80}}>
+<<<<<<< HEAD
             <Cell data="System Name" style={styles.head} textStyle={styles.headText}/>
             {
               filteredTableData.map((row, i) => (
                 <Cell key={i} data={row[0]} height={28} style={i%2 && {backgroundColor: '#DFF5F2'}} textStyle={styles.titleText}/>
+=======
+            <Cell data= {'checkBox here?'} style={styles.head} textStyle={styles.headText}/>
+            {
+              filteredTableData.map((row, i) => (
+                <Cell key={i} data={row[3]} height={28} style={i%2 && {backgroundColor: '#DFF5F2'}} textStyle={styles.titleText}/>
+>>>>>>> 1fdc48691b5c1b6c3e44f621a621443b5bffecf3
               ))
             }
           </TableWrapper>
@@ -89,7 +122,10 @@ export default class LinksScreen extends React.Component {
         </Table>
         <View style={{width: 50, height: 55}} />
         </ScrollView>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1fdc48691b5c1b6c3e44f621a621443b5bffecf3
 
         </View>
 

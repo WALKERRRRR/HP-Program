@@ -35,34 +35,35 @@ import {
 } from 'react-native';
 import SortableList from 'react-native-sortable-list';
 import { WebBrowser } from 'expo';
+import '../data/data.js';
 
 const window = Dimensions.get('window');
 
 // Data will be where the system data is organized.
-const data = {
+const listData = {
   0: {
     image: 'https://placekitten.com/200/240',
-    text: 'Chloe',
+    text: global.data[0]['companyName'],
   },
   1: {
     image: 'https://placekitten.com/200/201',
-    text: 'Jasper',
+    text: global.data[0]['systemName']
   },
   2: {
     image: 'https://placekitten.com/200/202',
-    text: 'Pepper',
+    text: global.data[2]['companyName']
   },
   3: {
     image: 'https://placekitten.com/200/203',
-    text: 'Oscar',
+    text: global.data[3]['companyName']
   },
   4: {
     image: 'https://placekitten.com/200/204',
-    text: 'Dusty',
+    text: global.data[4]['companyName']
   },
   5: {
     image: 'https://placekitten.com/200/205',
-    text: 'Spooky',
+    text: global.data[5]['companyName']
   },
   6: {
     image: 'https://placekitten.com/200/210',
@@ -90,7 +91,7 @@ export default class Basic extends Component {
         <SortableList
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
-          data={data}
+          data={listData}
           renderRow={this._renderRow} />
       </View>
     );

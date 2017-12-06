@@ -2,12 +2,14 @@ import json
 
 def contruct():
     dic = open('systems-2017-09-21.csv', 'r')
-    data = [{}]
+    data = []
     dataHeaders = dic.readline().replace('"', '').replace('\n', '').split(',')
     print len(dataHeaders)
     rowCount = 0 # current row
     colCount = 0 # current header (data type)
     for line in dic:
+        if rowCount == 500:
+            break
         data.append({})
         entries = line.replace('"','').replace('\n','').split(',')
         entryNum = 0
@@ -24,5 +26,7 @@ def contruct():
 
 if __name__ == '__main__':
     data = contruct()
-    with open('constructed-data.txt', 'w') as outfile:
-        json.dump(data, outfile)
+    outfile = open('constructed-data-500.js', 'w')
+    outfile.write('global.data = ')
+    json.dump(data, outfile)
+    outfile.close()

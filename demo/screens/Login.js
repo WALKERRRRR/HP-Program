@@ -17,9 +17,13 @@ export default class Login extends React.Component {
 
 
      if(this.state.correctInformation == true){
-       return(
-         <RootNavigation />
-       );
+      return (
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
+          <RootNavigation />
+        </View>
+      );
      }
      else{
        return (

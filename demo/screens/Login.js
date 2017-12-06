@@ -66,7 +66,9 @@ export default class Login extends React.Component {
                 un = this.state.username.toLowerCase();
 
                 if(un != '' && pw == '123'){
-                    for(i = 0; i < 500; i++ ){
+
+                    for(i = 0; i < global.data.length; i++ ){
+            
                       if(un == global.data[i]["companyName"].toLowerCase()){
                         this.state.accountData.push(global.data[i]);
                       }
@@ -91,7 +93,7 @@ export default class Login extends React.Component {
             />
           </View>
 
-          <Text>Use UN: Phat, PW: 123</Text>
+          <Text>Use UN: Lynx, PW: 123</Text>
 
         </View>
 

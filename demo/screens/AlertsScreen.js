@@ -62,7 +62,13 @@ export default class SectionListBasics extends Component {
           style={styles.optionNeutral}
           background={Touchable.Ripple('#ccc', false)}
           onPress={this._handlePressCngPass}>
-          <Text style={styles.titleText}>Neutral Alerts ({dataNeutral.length})</Text>
+          <View style={{ flexDirection: 'row' }}>
+          <View style={styles.optionIconContainer}>
+            <Ionicons name="ios-warning" size={25} color="#00FF00" />
+          </View>
+          	<Text style={styles.titleText}>Neutral Alerts ({dataNeutral.length})</Text>
+          	<Text style={styles.signText}> ({signUrgent}) </Text>
+          </View>
         </Touchable>
         <SectionList style={styles.sectionStyle}
           sections={[

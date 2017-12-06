@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
@@ -21,6 +21,8 @@ export default class LinksScreen extends React.Component {
     };
   }
 
+
+  
   
   render() {
 
@@ -42,10 +44,10 @@ export default class LinksScreen extends React.Component {
         <Table style={styles.table}>
           {/* Left Wrapper */}
           <TableWrapper style={{width: 80}}>
-            <Cell data= {'checkBox here?'} style={styles.head} textStyle={styles.headText}/>
+            <Cell data= {'Dashboard Toggle'} style={styles.head} textStyle={styles.headText}/>
             {
               filteredTableData.map((row, i) => (
-                <Cell key={i} data={row[3]} height={28} style={i%2 && {backgroundColor: '#DFF5F2'}} textStyle={styles.titleText}/>
+                <Button onPress = {console.log('button clicked')}  title="Some button" />
               ))
             }
           </TableWrapper>
@@ -81,6 +83,6 @@ const styles = StyleSheet.create({
   head: { backgroundColor: '#333', height: 40 },
   headText: { color: '#fff', textAlign: 'center' },
   titleText: { marginLeft: 6 },
-  list: { height: 28, backgroundColor: '#f0f0f0' },
+  list: { height: 33, backgroundColor: '#f0f0f0' },
   listText: { textAlign: 'right', marginRight: 6 },
 });

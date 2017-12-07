@@ -58,8 +58,8 @@ export default class Login extends React.Component {
           </View>
 
 
-          <View style={{borderRadius: 7, marginTop: 30,  justifyContent: 'center', width: 150, alignItems: 'center', backgroundColor: 'green'}}>
-            <Button style={{alignItems: 'center'}}
+          <View style={{borderRadius: 7, marginTop: 30,  justifyContent: 'center', width: 70, alignItems: 'center', backgroundColor: 'green'}}>
+            <Button style={{alignItems: 'center', borderRadius: 7}}
               // onPress={() => {onPressLogin(this.state.username, this.state.password)}}
               onPress={() => {
                 pw = this.state.password;
@@ -68,7 +68,7 @@ export default class Login extends React.Component {
                 if(un != '' && pw == '123'){
 
                     for(i = 0; i < global.data.length; i++ ){
-            
+
                       if(un == global.data[i]["companyName"].toLowerCase()){
                         this.state.accountData.push(global.data[i]);
                       }

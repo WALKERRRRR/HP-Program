@@ -43,7 +43,7 @@ export default class ProfileScreen extends React.Component {
           <Touchable
             style={styles.option}
             background={Touchable.Ripple('#ccc', false)}
-            onPress={() => navigate('Export')}>
+            onPress={() => navigate('Config')}>
             <View style={{ flexDirection: 'row' }}>
               <View style={styles.optionIconContainer}>
                 <Image

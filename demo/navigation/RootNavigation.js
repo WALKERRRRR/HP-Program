@@ -3,6 +3,7 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
 import ExportScreen from '../screens/ExportScreen';
+import ConfigScreen from '../screens/ConfigScreen';
 import LoginScreen from '../screens/Login';
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
@@ -15,6 +16,9 @@ const RootStackNavigator = StackNavigator(
     Export: {
       screen: ExportScreen,
     },
+    Config: {
+      screen: ConfigScreen,
+    }
     // Login: {
     //   screen: LoginScreen,
     // },

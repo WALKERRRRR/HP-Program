@@ -13,7 +13,7 @@ export default class LinksScreen extends React.Component {
   state: {
     query: String,
   }
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,15 +22,15 @@ export default class LinksScreen extends React.Component {
   }
 
 
-  
-  
+
+
   render() {
 
     tableHead = ['companyName', 'systemName', 'serialNumber','productFamily','model','osVersion','cpgCount','recommended.osVersion','location.region','location.country','installDate', 'updated'];
-    
+
     toProcess = global.data;
     tableData = toProcess.map(elem => [elem['companyName'], elem['systemName'], elem['serialNumber'],elem['productFamily'],elem['model'],elem['osVersion'],elem['cpgCount'],elem['recommended.osVersion'],elem['location.region'],elem['location.country'],elem['installDate'], elem['updated']]);
-    
+
     widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
     var query = this.state.query;
     var filteredTableData = query = '' ? tableData : tableData.filter(row=> row.some(elem => elem.includes(query)));
@@ -39,7 +39,7 @@ export default class LinksScreen extends React.Component {
         <SearchBar
         onChangeText = {(query) => this.setState({query})}
         placeholder='Search'/>
-        
+
         <ScrollView>
         <Table style={styles.table}>
           {/* Left Wrapper */}
@@ -47,11 +47,11 @@ export default class LinksScreen extends React.Component {
             <Cell data= {'Dashboard Toggle'} style={styles.head} textStyle={styles.headText}/>
             {
               filteredTableData.map((row, i) => (
-                <Button onPress = {console.log('button clicked')}  title="Some button" />
+                <Button onPress = {function myFunction(){}}  title="Some button" />
               ))
             }
           </TableWrapper>
- 
+
           {/* Right scrollview Wrapper */}
           <ScrollView horizontal={true}>
             {/* If parent element is not table element, you should add the type of borderstyle. */}

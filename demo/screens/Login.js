@@ -5,11 +5,16 @@ import { AppRegisty, Alert, Text, TextInput, View, Image, Platform, StyleSheet, 
 import RootNavigator from '../navigation/RootNavigation';
 import '../data/data.js'
 
+global.accountData = [];
+
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {username: '', password: '', correctInformation: false, accountData:[]};
+    this.state = {username: '', password: '', correctInformation: false};
   }
+
+
+
 
   render() {
      let hpe_pic = {
@@ -70,10 +75,10 @@ export default class Login extends React.Component {
                     for(i = 0; i < global.data.length; i++ ){
 
                       if(un == global.data[i]["companyName"].toLowerCase()){
-                        this.state.accountData.push(global.data[i]);
+                        global.accountData.push(global.data[i]);
                       }
                     }
-                    if(this.state.accountData.length != 0 ){
+                    if(global.accountData.length != 0 ){
                       this.setState(previousState => {
                         return { correctInformation: true };
                       });

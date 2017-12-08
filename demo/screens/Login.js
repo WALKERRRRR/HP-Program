@@ -2,45 +2,29 @@ import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
 import { AppRegisty, Alert, Text, TextInput, View, Image, Platform, StyleSheet, Button } from 'react-native';
-//import RootNavigator from '../navigation/RootNavigation';
-// import ExportScreen from '../screens/ExportScreen';
-// import MainTabNavigator from '../navigation/MainTabNavigator';
+import RootNavigator from '../navigation/RootNavigation';
 import '../data/data.js'
 
-<<<<<<< HEAD
 
 
-export default class Login extends React.Component {
-=======
-global.accountData = [];
 export default class LoginScreen extends Component {
->>>>>>> e8f7326006c3ecbafad679a9a73f3dfbed4e8549
   constructor(props) {
     super(props);
     this.state = {username: '', password: '', correctInformation: false};
   }
-  static navigationOptions = {
-    header: null,
-  };
 
 
 
 
   render() {
-    const { navigate } = this.props.navigation;
      let hpe_pic = {
        uri: 'https://cdn.comparethecloud.net/wp-content/uploads/2017/02/HPE-Unveils-Its-New-Converged-IoT-1.jpg'
      };
 
 
      if(this.state.correctInformation == true){
-       // <View >
-       //   {navigate('Main')}
-       // </View >
       return (
-        <View >
-          {navigate('Main')}
-        </View >
+        <RootNavigator />
       );
      }
      else{
@@ -128,7 +112,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: 'white'
   },
   container: {
     flex: 1,

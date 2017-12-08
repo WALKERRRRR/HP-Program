@@ -4,15 +4,12 @@ import { StackNavigator } from 'react-navigation';
 
 import ExportScreen from '../screens/ExportScreen';
 import ConfigScreen from '../screens/ConfigScreen';
-import LoginScreen from '../screens/Login.js';
+import LoginScreen from '../screens/Login';
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
   {
-    Login: {
-      screen: LoginScreen,
-    },
     Main: {
       screen: MainTabNavigator,
     },
@@ -22,12 +19,15 @@ const RootStackNavigator = StackNavigator(
     Config: {
       screen: ConfigScreen,
     }
+    // Login: {
+    //   screen: LoginScreen,
+    // },
   },
   {
     navigationOptions: () => ({
-      // headerTitleStyle: {
-      //   fontWeight: 'normal',
-      // },
+      headerTitleStyle: {
+        fontWeight: 'normal',
+      },
     }),
   }
 );

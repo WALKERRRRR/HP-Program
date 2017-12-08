@@ -7,11 +7,9 @@ import { Ionicons } from '@expo/vector-icons';
 import Touchable from 'react-native-platform-touchable';
 import MainTabNavigator from '../navigation/MainTabNavigator';
 import RootNavigation from '../navigation/RootNavigation';
-import { StackNavigator } from 'react-navigation';
-import { NavigationActions } from 'react-navigation'
-
 import ExportScreen from './ExportScreen';
 import LoginScreen from './Login';
+import { StackNavigator } from 'react-navigation';
 
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
@@ -20,12 +18,6 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({ routeName: 'Login'})
-      ]
-    })
     return (
 
       <ScrollView style={styles.container}>
@@ -93,7 +85,7 @@ export default class ProfileScreen extends React.Component {
           <Touchable
             style={styles.optionLogout}
             background={Touchable.Ripple('#ccc', false)}
-            onPress={() => this.props.navigation.dispatch(resetAction)}>
+            onPress={() => <ExportScreen />}>
             <View style={{ flexDirection: 'row' }}>
               <View style={[styles.optionTextContainer, {
                 flex: 1,

@@ -93,13 +93,17 @@ export default class Basic extends Component {
           contentContainerStyle={styles.contentContainer}
           data={listData}
           renderRow={this._renderRow} 
-          onPressRow={this._displayModal}/>
+          // onPressRow={this._renderModalContent}
+          />
       </View>
     );
   }
-  _displayModal = (key) => {
-    return
-  }
+  _renderModalContent = () => (
+    <View style={styles.modalContent}>
+      <Text>Hello!</Text>
+      {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
+    </View>
+  );
   _renderRow = ({ data, active }) => {
     return <Row data={data} active={active} />
   }

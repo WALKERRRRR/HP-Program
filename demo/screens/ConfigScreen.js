@@ -63,7 +63,7 @@ const systemData = {
   },
 };
 
-export default class Basic extends Component {
+export default class ConfigScreen extends Component {
   static navigationOptions = {
     title: 'Dashboard Configuration',
   };

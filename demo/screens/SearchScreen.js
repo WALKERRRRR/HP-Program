@@ -28,7 +28,7 @@ export default class LinksScreen extends React.Component {
 
     tableHead = ['companyName', 'systemName', 'serialNumber','productFamily','model','osVersion','cpgCount','recommended.osVersion','location.region','location.country','installDate', 'updated'];
 
-    toProcess = global.data;
+    toProcess = global.accountData;
     tableData = toProcess.map(elem => [elem['companyName'], elem['systemName'], elem['serialNumber'],elem['productFamily'],elem['model'],elem['osVersion'],elem['cpgCount'],elem['recommended.osVersion'],elem['location.region'],elem['location.country'],elem['installDate'], elem['updated']]);
 
     widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100];

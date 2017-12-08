@@ -5,9 +5,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 //TODO Change the titles to be buttons and have it expand. Change the text box to onPress maybe?
 
-const dataUrgent = ['Straw Man must get a brain', 'Siryn must renew contract with HP by 12/30/17', 'Rebel system is down', 'Zombie apocalypse beware']
-const dataCaution = ['Night Rifer has used 50% of its storage', 'osVersion  of 1027 is outdated','Night rider is low on memory', 'Boom Boom operating system out of date']
-const dataNeutral = ['Amun is running well', 'Scrambler currently streaming data', 'Optoman has used 20% storage']
+const dataUrgent = ['Rebel System is down', 'Siryn System must renew contract with HP by 12/30/17','Zombie System may crash today']
+const dataCaution = ['Night Rider System has used 50% of its storage', 'osVersion  of 1027 is outdated','Night rider System is low on memory', 'Boom Boom operating system out of date']
+const dataNeutral = ['Amun System is running well', 'Scrambler System currently streaming data', 'Optoman System has used 20% storage']
 var signUrgent = "+"
 var signCaution = "+"
 var signNeutral = "+"
@@ -34,6 +34,7 @@ export default class SectionListBasics extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <ScrollView>
         <Touchable
           style={styles.optionUrgent}
           background={Touchable.Ripple('#ea4355', true)}
@@ -127,6 +128,7 @@ export default class SectionListBasics extends Component {
           keyExtractor={(item, index) => index}
         />
       </View>
+      </ScrollView>
       </View>
     );
   }

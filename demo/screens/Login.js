@@ -5,9 +5,9 @@ import { AppRegisty, Alert, Text, TextInput, View, Image, Platform, StyleSheet, 
 import RootNavigator from '../navigation/RootNavigation';
 import '../data/data.js'
 
-global.accountData = [];
 
-export default class Login extends React.Component {
+
+export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {username: '', password: '', correctInformation: false};

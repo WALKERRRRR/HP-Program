@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Button, Alert, TouchableOpacity } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
@@ -47,7 +47,9 @@ export default class LinksScreen extends React.Component {
             <Cell data= {'Dashboard Toggle'} style={styles.head} textStyle={styles.headText}/>
             {
               filteredTableData.map((row, i) => (
-                <Button onPress = {function myFunction(){}}  title="Some button" />
+                <TouchableOpacity style={[styles.toggle, i%2 && {backgroundColor: '#DFF5F2'}]} widthArr={widthArr} textStyle={styles.listText} onPress ={function myFunction(){}}>
+                <Text>My button</Text>
+                </TouchableOpacity>
               ))
             }
           </TableWrapper>
@@ -85,4 +87,5 @@ const styles = StyleSheet.create({
   titleText: { marginLeft: 6 },
   list: { height: 33, backgroundColor: '#f0f0f0' },
   listText: { textAlign: 'right', marginRight: 6 },
+  toggle: {height: 33, backgroundColor: '#f0f0f0', borderBottomWidth: 1, borderBottomColor: 'black'},
 });

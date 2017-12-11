@@ -1,189 +1,334 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  Image,
-  Platform,
-  ScrollView,
+  Animated,
+  Easing,
+  AppRegistry,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  Image,
   View,
+  Dimensions,
+  Platform,
+  TouchableOpacity,
+    ScrollView,
 } from 'react-native';
+import SortableList from '../components/my-sortable-lis/src/SortableList.js';
 import { WebBrowser } from 'expo';
+import Swipeout from '../components/my-swipeout/dist/index.js'
+import Modal from 'react-native-modal'
+import '../data/data.js';
 
-import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+// listData will be where the system data is organized.
+const listData = {
+  0: {
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[0]['systemName'],
+    id: 0,
+    active: true,
+  },
+  1: {
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[0]['systemName'],
+    id: 1,
+    active: true,
+  },
+  2: {
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[2]['systemName'],
+    id: 2,
+    active: true,
+  },
+  3: {
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[3]['systemName'],
+    id: 3,
+    active: true,
+  },
+  4: {
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[4]['systemName'],
+    id: 4,
+    active: true,
+  },
+  5: {
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[5]['systemName'],
+    id: 5,
+    active: true,
+  },
+  6: {
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[6]['systemName'],
+    id: 6,
+    active: true,
+  },
+  7: {
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[7]['systemName'],
+    id: 7,
+    active: true,
+  },
+};
+
+const window = Dimensions.get('window');
+
+export default class Dashboard extends Component {  
   static navigationOptions = {
-    header: null,
-    title: 'Home',
+    title: 'Dashboard',
   };
+
+  state = {
+        activeRowKey: null,
+        visibleModal: null,
+        deleteModal: null,
+  };
+  _renderButton = (data, onPress) => (
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.button}>
+        <Text style={styles.text}>{data.text}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  _renderButton1 = (onPress) => (
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.addButton}>
+        <Text style={styles.text}>Add new system</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  _renderModalContent1 = () => (
+    <View style={styles.modalContent}>
+      <Text>No system avaliable</Text>
+      {this._renderButton({text: 'Cancel'}, () => this.setState({ visibleModal: null }))}
+    </View>
+  );
 
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
 
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
+        <SortableList
+          style={styles.list}
+          contentContainerStyle={styles.contentContainer}
+          data={listData}
+          renderRow={this._renderRow}/>
+        {this._renderButton1(() => this.setState({ visibleModal: 1 }))}
+        <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent1()}
+        </Modal>
       </View>
     );
   }
+  _renderRow = ({ data, active, key }) => {
+    return <RemovableRow data={data} active={active} key={key}/>
+  }
+}
 
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
+class RemovableRow extends Component {
+  constructor(props) {
+    super(props);
+      
+    this.state = {
+        activeRowKey: null,
     }
+
+    this._active = new Animated.Value(0);
+
+    this._style = {
+      ...Platform.select({
+        ios: {
+          transform: [{
+            scale: this._active.interpolate({
+              inputRange: [0, 1],
+              outputRange: [1, 1.1],
+            }),
+          }],
+          shadowRadius: this._active.interpolate({
+            inputRange: [0, 1],
+            outputRange: [2, 10],
+          }),
+        },
+
+        android: {
+          transform: [{
+            scale: this._active.interpolate({
+              inputRange: [0, 1],
+              outputRange: [1, 1.07],
+            }),
+          }],
+          elevation: this._active.interpolate({
+            inputRange: [0, 1],
+            outputRange: [2, 6],
+          }),
+        },
+      })
+    };
   }
 
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
+  componentWillReceiveProps(nextProps) {
+    if (this.props.active !== nextProps.active) {
+      Animated.timing(this._active, {
+        duration: 300,
+        easing: Easing.bounce,
+        toValue: Number(nextProps.active),
+      }).start();
+    }
+  }
+    
+  _renderButton = (data, onPress) => (
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.button}>
+        <Text style={styles.text}>{data.text}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
+
+  _renderModalContent = (data) => (
+    <View style={styles.modalContent}>
+      <Image source={ require('../images/ds.jpg')} style={styles.modalImage} />
+      <Text>total Storage avalible</Text>
+      {this._renderButton({text: 'Close'}, () => this.setState({ visibleModal: null }))}
+    </View>
+  );
+
+  render() {
+    const { data, active } = this.props;
+      
+    const swipeSettings = {
+        autoClose: true,
+        onClose: (secId, rowId, direction) => {
+            this.setState({activeRowKey: null});
+        },
+        onOpen: (secId, rowId, direction) => {
+            this.setState({activeRowKey: null });
+        },
+        right: [
+            {
+                onPress: () => {
+                    data['active'] = false;
+                    console.log(data.text);
+                },
+                text: 'X', type: 'delete'
+            }
+        ]
+    }
+
+    return (
+     <Animated.View style={[styles.row,this._style]}>
+        <View style={styles.rowLeft}>
+            <Image source={{ uri: data.image }} style={styles.image} />
+            {this._renderButton(data, () => this.setState({ visibleModal: 1 }))}
+            <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent(data)}</Modal>
+        </View>
+        <Swipeout {...swipeSettings}>
+            <View style={styles.rowRight}>
+                <Text style={styles.text}></Text>
+            </View>
+        </Swipeout>
+      </Animated.View>
     );
-  };
+  }
 }
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#eee',
+  },
+
+  title: {
+    fontSize: 20,
+    paddingVertical: 20,
+    color: '#999999',
+  },
+
+  list: {
+    flex: 1,
+  },
+
+  contentContainer: {
+    width: window.width,
+  },
+    
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    //backgroundColor: 'lightblue'
+  },
+  addButton: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      //backgroundColor: 'lightblue',
+  },
+    
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    alignItems: 'center',
+    borderRadius: 4,
+    borderWidth: 2,
+  },
+    
+  modalImage1: {
+    width: 200,
+    height: 200,
+    marginRight: 30,
+    borderRadius: 25,
+    borderColor: 'red',
+    borderWidth: 2,
+  },
+  modalImage: {
+    width: 200,
+    height: 200,
+
+  },
+    
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    height: 80,
+    flex: 1,
+    borderWidth: 1,
+    borderColor: 'lightgrey',
+    marginTop: 3,
+    marginBottom: 3,
+    width: window.width,
+  },
+    
+  rowLeft: {
+    paddingLeft: 20,
+    width: window.width - 100,
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#fff',
   },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
+  
+  rowRight: {
     width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
+    height: 78,
+    flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: 50,
+    backgroundColor: '#fff',
   },
-  homeScreenFilename: {
-    marginVertical: 7,
+
+  image: {
+    width: 50,
+    height: 50,
+    marginRight: 30,
+    borderRadius: 25,
   },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+
+  text: {
+    fontSize: 24,
+    color: '#222222',
   },
 });
+
+AppRegistry.registerComponent('AwesomeProject', () => Dashboard);

@@ -37,51 +37,7 @@ import SortableList from 'react-native-sortable-list';
 import { WebBrowser } from 'expo';
 import '../data/data.js';
 
-const window = Dimensions.get('window');
-
-// listData will be where the system data is organized.
-const listData = {
-  0: {
-    image: 'https://placekitten.com/200/240',
-    text: global.data[0]['companyName'],
-  },
-  1: {
-    image: 'https://placekitten.com/200/201',
-    text: global.data[0]['systemName']
-  },
-  2: {
-    image: 'https://placekitten.com/200/202',
-    text: global.data[2]['companyName']
-  },
-  3: {
-    image: 'https://placekitten.com/200/203',
-    text: global.data[3]['companyName']
-  },
-  4: {
-    image: 'https://placekitten.com/200/204',
-    text: global.data[4]['companyName']
-  },
-  5: {
-    image: 'https://placekitten.com/200/205',
-    text: global.data[5]['companyName']
-  },
-  6: {
-    image: 'https://placekitten.com/200/210',
-    text: 'Kiki',
-  },
-  7: {
-    image: 'https://placekitten.com/200/215',
-    text: 'Smokey',
-  },
-  8: {
-    image: 'https://placekitten.com/200/220',
-    text: 'Gizmo',
-  },
-  9: {
-    image: 'https://placekitten.com/220/239',
-    text: 'Kitty',
-  },
-};
+const window = Dimensions.get('window')
 
 export default class Basic extends Component {
   render() {
@@ -91,19 +47,19 @@ export default class Basic extends Component {
         <SortableList
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
-          data={listData}
+          data={global.dashlets}
           renderRow={this._renderRow} 
           // onPressRow={this._renderModalContent}
           />
       </View>
     );
   }
-  _renderModalContent = () => (
-    <View style={styles.modalContent}>
-      <Text>Hello!</Text>
-      {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
-    </View>
-  );
+
+  _openAggregatePage = (aggregate) => {
+    // TODO: Open aggregate page and display this aggregate
+    return
+  }
+
   _renderRow = ({ data, active }) => {
     return <Row data={data} active={active} />
   }
@@ -247,7 +203,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 24,
+    fontSize: 18,
     color: '#222222',
   },
 });

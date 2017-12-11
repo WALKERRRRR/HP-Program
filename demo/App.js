@@ -27,7 +27,7 @@ export default class App extends React.Component {
           <RootNavigation />
         </View>
       );
-      /*TODO: Change to <Login /> after Development*/
+      /*TODO: Change <RootNavigation /> to <Login /> after Development*/
     }
   }
 

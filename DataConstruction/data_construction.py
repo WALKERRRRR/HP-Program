@@ -16,7 +16,7 @@ def contruct():
             for entry in entries:
                 if colCount <= len(dataHeaders):
                     print rowCount, ' ', colCount
-                    data[rowCount][dataHeaders[colCount]] = entry
+                    data[rowCount][dataHeaders[colCount].strip()] = entry
                     colCount += 1
             data[rowCount]['includeInAggregate'] = True
             rowCount += 1

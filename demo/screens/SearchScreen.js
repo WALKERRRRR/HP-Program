@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View, Button, Alert, TouchableOpacity } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, CheckBox} from 'react-native-elements';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import '../data/data.js'
 import '../data/accountData.js'
@@ -13,12 +13,14 @@ export default class LinksScreen extends React.Component {
 
   state: {
     query: String,
+    checked: Boolean,
   }
 
   constructor(props) {
     super(props);
     this.state = {
       query: ' ',
+      checked: true, 
     };
   }
 
@@ -29,7 +31,7 @@ export default class LinksScreen extends React.Component {
 
     tableHead = ['companyName', 'systemName', 'serialNumber','productFamily','model','osVersion','cpgCount','recommended.osVersion','location.region','location.country','installDate', 'updated'];
 
-    toProcess = global.accountData;
+    toProcess = global.data;
     tableData = toProcess.map(elem => [elem['companyName'], elem['systemName'], elem['serialNumber'],elem['productFamily'],elem['model'],elem['osVersion'],elem['cpgCount'],elem['recommended.osVersion'],elem['location.region'],elem['location.country'],elem['installDate'], elem['updated']]);
 
     widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
@@ -49,7 +51,7 @@ export default class LinksScreen extends React.Component {
             {
               filteredTableData.map((row, i) => (
                 <TouchableOpacity style={[styles.toggle, i%2 && {backgroundColor: '#DFF5F2'}]} widthArr={widthArr} textStyle={styles.listText} onPress ={function myFunction(){}}>
-                <Text>My button</Text>
+                <CheckBox center checked={this.state.checked} onPress ={()=>this.setState({checked: !this.state.checked})}/>
                 </TouchableOpacity>
               ))
             }

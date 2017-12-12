@@ -5,6 +5,7 @@ import { ExpoLinksView } from '@expo/samples';
 import { Ionicons } from '@expo/vector-icons';
 import { WebBrowser } from 'expo';
 import '../data/accountData.js'
+import { Linking } from 'react-native';
 
 export default class ExportScreen extends React.Component {
   static navigationOptions = {
@@ -60,7 +61,7 @@ export default class ExportScreen extends React.Component {
     );
   }
   _handlePressExportBut = () => {
-    WebBrowser.openBrowserAsync('http://docs.expo.io');
+      Linking.openURL('mailto:gordonanderson@umass.edu?subject=Dashboard PDF&body=Attached is the dashboard in PDF format');
   };
 }
 

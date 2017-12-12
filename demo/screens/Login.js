@@ -7,11 +7,14 @@ import '../data/data.js'
 import '../data/accountData.js'
 
 
+var usernameUpdate = '';
+var passwordUpdate = '';
+
 
 export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: '', password: '', correctInformation: false};
+    this.state = { correctInformation: false};
   }
 
 
@@ -46,7 +49,7 @@ export default class LoginScreen extends Component {
               autoCorrect={false}
               placeholderTextColor= 'grey'
               autoCapitalize='none'
-              onChangeText={(username) => this.setState({username})}
+              onChangeText={(username) => usernameUpdate = username}
             />
           </View>
 
@@ -59,26 +62,31 @@ export default class LoginScreen extends Component {
               placeholderTextColor='grey'
 
               secureTextEntry={true}
-              onChangeText={(password) => this.setState({password})}
+              onChangeText={(password) => passwordUpdate = password}
             />
           </View>
 
 
           <View style={{borderRadius: 7, marginTop: 30,  justifyContent: 'center', width: 70, alignItems: 'center', backgroundColor: 'green'}}>
             <Button style={{alignItems: 'center', borderRadius: 7}}
-              // onPress={() => {onPressLogin(this.state.username, this.state.password)}}
+              // onPress={() => {onPressLogin(username, password)}}
               onPress={() => {
-                pw = this.state.password;
-                un = this.state.username.toLowerCase();
+                pw = passwordUpdate;
+                un = usernameUpdate.toLowerCase();
 
                 if(un != '' && pw == '123'){
+                    //console.log(un);
+                    //console.log(pw);
 
                     for(i = 0; i < global.data.length; i++ ){
 
                       if(un == global.data[i]["companyName"].toLowerCase()){
+                        //console.log(un);
+                        //console.log(global.data[i]["companyName"].toLowerCase());
                         global.accountData.push(global.data[i]);
                       }
                     }
+                    //console.log(global.accountData.length);
                     if(global.accountData.length != 0 ){
                       this.setState(previousState => {
                         return { correctInformation: true };

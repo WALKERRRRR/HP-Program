@@ -12,6 +12,7 @@ import {
 import SortableList from 'react-native-sortable-list';
 import { WebBrowser } from 'expo';
 import '../data/accountData.js';
+import '../data/data.js';
 import '../data/dashlets.js';
 
 
@@ -20,48 +21,48 @@ const window = Dimensions.get('window');
 // listData will be where the system data is organized.
 const listData = {
   0: {
-    text: global.accountData[0]['companyName'],
+    text: global.data[0]['companyName'],
     image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
   },
   1: {
-    text: global.accountData[0]['systemName'],
+    text: global.data[0]['systemName'],
     image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
   },
   2: {
-    text: global.accountData[2]['companyName'],
+    text: global.data[2]['companyName'],
     image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
   },
   3: {
-    text: global.accountData[3]['companyName'],
+    text: global.data[3]['companyName'],
     image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
   },
   4: {
-    text: global.accountData[4]['companyName'],
+    text: global.data[4]['companyName'],
     image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
   },
   5: {
-    text: global.accountData[5]['companyName'],
+    text: global.data[5]['companyName'],
     image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
   },
 };
 const systemData = {
   0: {
-    text: global.accountData[0]['companyName'],
+    text: global.data[0]['companyName'],
   },
   1: {
-    text: global.accountData[0]['systemName'],
+    text: global.data[0]['systemName'],
   },
   2: {
-    text: global.accountData[2]['companyName'],
+    text: global.data[2]['companyName'],
   },
   3: {
-    text: global.accountData[3]['companyName'],
+    text: global.data[3]['companyName'],
   },
   4: {
-    text: global.accountData[4]['companyName'],
+    text: global.data[4]['companyName'],
   },
   5: {
-    text: global.accountData[5]['companyName'],
+    text: global.data[5]['companyName'],
   },
 };
 

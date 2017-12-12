@@ -4,6 +4,7 @@ import Touchable from 'react-native-platform-touchable';
 import { ExpoLinksView } from '@expo/samples';
 import { Ionicons } from '@expo/vector-icons';
 import { WebBrowser } from 'expo';
+import '../data/accountData.js'
 
 export default class ExportScreen extends React.Component {
   static navigationOptions = {

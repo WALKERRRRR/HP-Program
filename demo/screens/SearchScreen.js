@@ -4,6 +4,7 @@ import { ExpoLinksView } from '@expo/samples';
 import { SearchBar } from 'react-native-elements';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import '../data/data.js'
+import '../data/accountData.js'
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {

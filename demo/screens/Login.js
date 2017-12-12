@@ -4,6 +4,7 @@ import { SearchBar } from 'react-native-elements';
 import { AppRegisty, Alert, Text, TextInput, View, Image, Platform, StyleSheet, Button } from 'react-native';
 import RootNavigator from '../navigation/RootNavigation';
 import '../data/data.js'
+import '../data/accountData.js'
 
 
 

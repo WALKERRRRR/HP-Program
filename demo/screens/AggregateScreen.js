@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { AppRegistry, Alert, SectionList, StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import { Ionicons } from '@expo/vector-icons';
-import '../data/accountData.js'
 
 //TODO Change the titles to be buttons and have it expand. Change the text box to onPress maybe?
 

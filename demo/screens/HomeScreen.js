@@ -35,9 +35,56 @@ import {
 } from 'react-native';
 import SortableList from 'react-native-sortable-list';
 import { WebBrowser } from 'expo';
-import '../data/data.js';
+import '../data/data.js'
+import '../data/dashlets.js'
 
 const window = Dimensions.get('window')
+
+
+// listData will be where the system data is organized.
+const listData = {
+  0: {
+    image: 'https://placekitten.com/200/240',
+    text: "Average Disk Size",
+  },
+  1: {
+    image: 'https://placekitten.com/200/201',
+    text: "Total Storage Space",
+  },
+  2: {
+    image: 'https://placekitten.com/200/202',
+    text: "Total Number of Disks",
+  },
+  3: {
+    image: 'https://placekitten.com/200/203',
+    text: ""
+  },
+  4: {
+    image: 'https://placekitten.com/200/204',
+    text: ""
+  },
+  5: {
+    image: 'https://placekitten.com/200/205',
+    text: ""
+  },
+  6: {
+    image: 'https://placekitten.com/200/210',
+    text: 'Kiki',
+  },
+  7: {
+    image: 'https://placekitten.com/200/215',
+    text: 'Smokey',
+  },
+  8: {
+    image: 'https://placekitten.com/200/220',
+    text: 'Gizmo',
+  },
+  9: {
+    image: 'https://placekitten.com/220/239',
+    text: 'Kitty',
+  },
+};
+
 
 export default class Basic extends Component {
   render() {
@@ -47,17 +94,22 @@ export default class Basic extends Component {
         <SortableList
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
-          data={global.dashlets}
+          data={listData}
+          order={global.dashletOrder}
+          sortingEnabled = {true}
+          toggleRowActive = {true}
           renderRow={this._renderRow} 
-          // onPressRow={this._renderModalContent}
-          />
+          onPressRow={this._renderModalContent}
+        />
       </View>
     );
   }
 
   _openAggregatePage = (aggregate) => {
     // TODO: Open aggregate page and display this aggregate
-    return
+    return (
+      <AggregateScreen />
+    );
   }
 
   _renderRow = ({ data, active }) => {

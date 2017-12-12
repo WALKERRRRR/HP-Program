@@ -61,7 +61,7 @@ export default class ExportScreen extends React.Component {
     );
   }
   _handlePressExportBut = () => {
-      Linking.openURL('mailto:oliverman?subject=Dashboard PDF&body=Attached is the dashboard in PDF format');
+      Linking.openURL('mailto:gordonanderson@umass.edu?subject=Dashboard PDF&body=Attached is the dashboard in PDF format');
   };
 }
 

@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
     ScrollView,
 } from 'react-native';
-import SortableList from '../components/my-sortable-lis/src/SortableList.js';
+import SortableList from '../components/my-sortable-list/src/SortableList.js';
 import { WebBrowser } from 'expo';
 import Swipeout from '../components/my-swipeout/dist/index.js'
 import Modal from 'react-native-modal'
@@ -81,7 +81,8 @@ export default class Dashboard extends Component {
   state = {
         activeRowKey: null,
         visibleModal: null,
-        deleteModal: null,
+        deleteModal: false,
+        refresh: 1,
   };
   _renderButton = (data, onPress) => (
     <TouchableOpacity onPress={onPress}>
@@ -194,8 +195,23 @@ class RemovableRow extends Component {
     </View>
   );
 
+  _renderCloseWindow = (data, temp) => (
+    <View style={styles.modalContent}>
+      <Text>Remove Dashlet?</Text>
+      <View style={{width: 100, height: 50}}>
+            {this._renderButton({text: 'Yes'}, () => this._onRemove(data, temp))}
+            {this._renderButton({text: 'No'}, () => this.setState({ deleteModal: false }))}
+      </View>
+    </View>
+  );
+
+  _onRemove (data, temp) {
+      this.setState({deleteModal: false});
+      data['active'] = false;
+  }
+
   render() {
-    const { data, active } = this.props;
+    const { data, active, temp } = this.props;
       
     const swipeSettings = {
         autoClose: true,
@@ -208,8 +224,8 @@ class RemovableRow extends Component {
         right: [
             {
                 onPress: () => {
-                    data['active'] = false;
-                    console.log(data.text);
+                    // data['active'] = false;
+                    this.setState({deleteModal: true})
                 },
                 text: 'X', type: 'delete'
             }
@@ -222,6 +238,7 @@ class RemovableRow extends Component {
             <Image source={{ uri: data.image }} style={styles.image} />
             {this._renderButton(data, () => this.setState({ visibleModal: 1 }))}
             <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent(data)}</Modal>
+            <Modal isVisible={this.state.deleteModal === true}>{this._renderCloseWindow(data, temp)}</Modal>
         </View>
         <Swipeout {...swipeSettings}>
             <View style={styles.rowRight}>

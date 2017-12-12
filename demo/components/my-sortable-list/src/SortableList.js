@@ -113,6 +113,10 @@ export default class SortableList extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+  	return true;
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const {data} = this.state;
     const {data: prevData} = prevState;
@@ -267,6 +271,7 @@ export default class SortableList extends Component {
           {renderRow({
             key,
             data: data[key],
+            temp: this,
             disabled: !sortingEnabled,
             active,
             index,

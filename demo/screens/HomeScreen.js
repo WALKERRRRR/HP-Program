@@ -51,7 +51,6 @@ const userList = {
 }
 
 // listData will be where the system data is organized.
-// listData will be where the system data is organized.
 const listData = {
   0: {
     image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
@@ -297,7 +296,7 @@ class RemovableRow extends Component {
   _renderModalContent = (data) => (
     <View style={styles.modalContent}>
       <Image source={ require('../images/ds.jpg')} style={styles.modalImage} />
-      <Text>total Storage avalible</Text>
+      <Text>Total Storage Available</Text>
       {this._renderButton({text: 'Close'}, () => this.setState({ visibleModal: null }))}
     </View>
   );

@@ -1,0 +1,91 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "react-native-sortable-list",
+        "scope": null,
+        "escapedName": "react-native-sortable-list",
+        "name": "react-native-sortable-list",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\My Files\\Academic\\UMass\\CS 320\\Blah\\HP-Program\\demo"
+    ]
+  ],
+  "_from": "react-native-sortable-list@latest",
+  "_id": "react-native-sortable-list@0.0.19",
+  "_inCache": true,
+  "_location": "/react-native-sortable-list",
+  "_nodeVersion": "8.7.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/react-native-sortable-list-0.0.19.tgz_1510871789316_0.14785389276221395"
+  },
+  "_npmUser": {
+    "name": "gitim",
+    "email": "tim.gibadullin@gmail.com"
+  },
+  "_npmVersion": "5.5.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "react-native-sortable-list",
+    "scope": null,
+    "escapedName": "react-native-sortable-list",
+    "name": "react-native-sortable-list",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-sortable-list/-/react-native-sortable-list-0.0.19.tgz",
+  "_shasum": "53905100abb3a306d6bdd25107f0e6b38a402072",
+  "_shrinkwrap": null,
+  "_spec": "react-native-sortable-list",
+  "_where": "D:\\My Files\\Academic\\UMass\\CS 320\\Blah\\HP-Program\\demo",
+  "author": {
+    "name": "Tim Gibadullin",
+    "email": "tim.gibadullin@gmail.com",
+    "url": "https://github.com/gitim"
+  },
+  "bugs": {
+    "url": "https://github.com/gitim/react-native-sortable-list/issues"
+  },
+  "dependencies": {
+    "prop-types": "^15.5.10"
+  },
+  "description": "React Native Sortable List component",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-A3vtFR4mNGFaZrQCf0m2WGdx0KQ6Pv/lllfZZQsx8j/BM/hPxBwxOn78VBWaIdHokabDdv/Rv/kHHo9jjpPIgw==",
+    "shasum": "53905100abb3a306d6bdd25107f0e6b38a402072",
+    "tarball": "https://registry.npmjs.org/react-native-sortable-list/-/react-native-sortable-list-0.0.19.tgz"
+  },
+  "gitHead": "7f897abffc2f9b82dc4e1de62af340da950b9b89",
+  "homepage": "https://github.com/gitim/react-native-sortable-list",
+  "keywords": [
+    "react-native",
+    "ios",
+    "react-component"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "gitim",
+      "email": "tim.gibadullin@gmail.com"
+    }
+  ],
+  "name": "react-native-sortable-list",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/gitim/react-native-sortable-list.git"
+  },
+  "version": "0.0.19"
+}

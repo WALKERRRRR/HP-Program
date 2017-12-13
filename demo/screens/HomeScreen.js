@@ -64,7 +64,7 @@ const listData = {
     percentAva: global.data[0]['capacity.total.freePct'],
     totalAva:global.data[0]['capacity.total.freeTiB'],
     readSpeed: global.data[0]['performance.summary.portInfo.readServiceTimeMillis'],
-    writeSpeed: global.data[0]['performance.summary.portInfo.writeServiceTimeMillis'],
+    writeSpeed: global.data[0]['performance.summary.portInfo.writeServiceTimeMillis'],      
   },
   1: {
     image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
@@ -77,7 +77,7 @@ const listData = {
     percentAva: global.data[1]['capacity.total.freePct'],
     totalAva:global.data[1]['capacity.total.freeTiB'],
     readSpeed: global.data[1]['performance.summary.portInfo.readServiceTimeMillis'],
-    writeSpeed: global.data[1]['performance.summary.portInfo.writeServiceTimeMillis'],
+    writeSpeed: global.data[1]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   2: {
@@ -91,21 +91,21 @@ const listData = {
     percentAva: global.data[2]['capacity.total.freePct'],
     totalAva:global.data[2]['capacity.total.freeTiB'],
     readSpeed: global.data[2]['performance.summary.portInfo.readServiceTimeMillis'],
-    writeSpeed: global.data[2]['performance.summary.portInfo.writeServiceTimeMillis'],
+    writeSpeed: global.data[2]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   3: {
     image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
     text: global.data[3]['systemName'],
     id: 3,
-    active: true,
+    active: true,          
     test : 1,
     lastUpdate: global.data[3]['updated'],
     model: global.data[3]['model'],
     percentAva: global.data[3]['capacity.total.freePct'],
     totalAva:global.data[3]['capacity.total.freeTiB'],
     readSpeed: global.data[3]['performance.summary.portInfo.readServiceTimeMillis'],
-    writeSpeed: global.data[3]['performance.summary.portInfo.writeServiceTimeMillis'],
+    writeSpeed: global.data[3]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   4: {
@@ -119,7 +119,7 @@ const listData = {
     percentAva: global.data[4]['capacity.total.freePct'],
     totalAva:global.data[4]['capacity.total.freeTiB'],
     readSpeed: global.data[4]['performance.summary.portInfo.readServiceTimeMillis'],
-    writeSpeed: global.data[4]['performance.summary.portInfo.writeServiceTimeMillis'],
+    writeSpeed: global.data[4]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   5: {
@@ -133,7 +133,7 @@ const listData = {
     percentAva: global.data[5]['capacity.total.freePct'],
     totalAva:global.data[5]['capacity.total.freeTiB'],
     readSpeed: global.data[5]['performance.summary.portInfo.readServiceTimeMillis'],
-    writeSpeed: global.data[5]['performance.summary.portInfo.writeServiceTimeMillis'],
+    writeSpeed: global.data[5]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   6: {
@@ -147,7 +147,7 @@ const listData = {
     percentAva: global.data[6]['capacity.total.freePct'],
     totalAva:global.data[6]['capacity.total.freeTiB'],
     readSpeed: global.data[6]['performance.summary.portInfo.readServiceTimeMillis'],
-    writeSpeed: global.data[6]['performance.summary.portInfo.writeServiceTimeMillis'],
+    writeSpeed: global.data[6]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   7: {
@@ -161,15 +161,14 @@ const listData = {
     percentAva: global.data[7]['capacity.total.freePct'],
     totalAva:global.data[7]['capacity.total.freeTiB'],
     readSpeed: global.data[7]['performance.summary.portInfo.readServiceTimeMillis'],
-    writeSpeed: global.data[7]['performance.summary.portInfo.writeServiceTimeMillis'],
+    writeSpeed: global.data[7]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
 };
 
-export default class Dashboard extends Component {
+export default class Dashboard extends Component {  
   static navigationOptions = {
     title: 'Dashboard',
-    headerLeft: null,
   };
 
   state = {
@@ -177,7 +176,7 @@ export default class Dashboard extends Component {
         addDashlet: false,
         toAdd: null,
   };
-
+  
   // Button to Add Dashlets to the Board
   _renderAddButton = (onPress) => (
     <TouchableOpacity onPress={onPress}>
@@ -221,12 +220,12 @@ export default class Dashboard extends Component {
         />
         </View>
         <View style={{backgroundColor: 'lightgrey', alignSelf: 'stretch', borderRadius: 2}}>
-          {this._renderButton({text: 'Add'}, () => this._addDashletHelper())}
+          {this._renderButton({text: 'Add'}, () => this._addDashletHelper())}       
           {this._renderButton({text: 'Cancel'}, () => this.setState({ addDashlet: false, toAdd: null }))}
         </View>
     </View>
   );
-
+                    
   // Sets selected dashlets to active
   // Then forces an update
   _addDashletHelper() {
@@ -240,7 +239,7 @@ export default class Dashboard extends Component {
     this.forceUpdate()
   }
 
-  //
+  // 
   _renderButton = (data, onPress) => (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -265,7 +264,7 @@ export default class Dashboard extends Component {
       </View>
     );
   }
-
+  
   _renderRow = ({ data, active, key, updateFunc }) => {
     return <RemovableRow data={data} active={active} key={key} updateFunc={updateFunc}/>
   }
@@ -278,7 +277,7 @@ export default class Dashboard extends Component {
   }
 }
 
-
+        
 class RemovableRow extends Component {
 
   constructor(props) {
@@ -289,7 +288,7 @@ class RemovableRow extends Component {
         visibleModal: false,
         deleteModal: false,
     }
-
+        
     this._active = new Animated.Value(0);
 
     this._style = {
@@ -381,7 +380,7 @@ class RemovableRow extends Component {
 
   render() {
     const { data, active, key, updateFunc } = this.props;
-
+      
     const swipeSettings = {
         autoClose: true,
         onClose: (secId, rowId, direction) => {
@@ -439,7 +438,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     width: window.width,
   },
-
+    
   button: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -450,7 +449,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       //backgroundColor: 'lightblue',
   },
-
+    
   modalContent: {
     backgroundColor: 'white',
     padding: 22,
@@ -458,7 +457,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 2,
   },
-
+    
   modalImage1: {
     width: 200,
     height: 200,
@@ -472,7 +471,7 @@ const styles = StyleSheet.create({
     height: 200,
 
   },
-
+    
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -485,7 +484,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     width: window.width,
   },
-
+    
   rowLeft: {
     paddingLeft: 20,
     width: window.width - 100,
@@ -493,7 +492,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
-
+  
   rowRight: {
     width: 100,
     height: 78,
@@ -515,7 +514,7 @@ const styles = StyleSheet.create({
   },
 
   textBox: {
-    color: '#222222',
+    // backgroundColor: '#FFFFF00',
   },
 });
 

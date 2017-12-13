@@ -14,57 +14,11 @@ import { WebBrowser } from 'expo';
 import '../data/accountData.js';
 import '../data/data.js';
 import '../data/dashlets.js';
+import {listData} from './HomeScreen.js';
 
 
 const window = Dimensions.get('window');
 
-// listData will be where the system data is organized.
-const listData = {
-  0: {
-    text: global.data[0]['companyName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-  1: {
-    text: global.data[0]['systemName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-  2: {
-    text: global.data[2]['companyName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-  3: {
-    text: global.data[3]['companyName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-  4: {
-    text: global.data[4]['companyName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-  5: {
-    text: global.data[5]['companyName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-};
-const systemData = {
-  0: {
-    text: global.data[0]['companyName'],
-  },
-  1: {
-    text: global.data[0]['systemName'],
-  },
-  2: {
-    text: global.data[2]['companyName'],
-  },
-  3: {
-    text: global.data[3]['companyName'],
-  },
-  4: {
-    text: global.data[4]['companyName'],
-  },
-  5: {
-    text: global.data[5]['companyName'],
-  },
-};
 
 export default class Basic extends Component {
   static navigationOptions = {
@@ -96,7 +50,7 @@ export default class Basic extends Component {
           <SortableList
             style={styles.list}
             contentContainerStyle={styles.contentContainer}
-            data={systemData}
+            data={listData}
             renderRow={this._renderRow}
             onPressRow={this._displayModal}/>
 

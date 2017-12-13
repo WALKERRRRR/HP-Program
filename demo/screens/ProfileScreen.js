@@ -42,7 +42,7 @@ export default class ProfileScreen extends React.Component {
           <View style={styles.titleTextContainer}>
             <View style={styles.centerText}>
               <Text style={styles.nameText} numberOfLines={1}>
-                {usernameUpdate}
+                {usernameUpdate.toUpperCase()}
               </Text>
             </View>
           </View>
@@ -64,7 +64,7 @@ export default class ProfileScreen extends React.Component {
               </View>
               <View style={styles.optionTextContainer}>
                 <Text style={styles.optionText}>
-                  Dashboard Configuration
+                  My Systems
                 </Text>
               </View>
             </View>

@@ -73,13 +73,15 @@ export default class LoginScreen extends Component {
               if(un != '' && pw == '123'){
                   //console.log(un);
                   //console.log(pw);
-
+                  var rowNumber = 0;
                   for(i = 0; i < global.data.length; i++ ){
 
                     if(un == global.data[i]["companyName"].toLowerCase()){
                       //console.log(un);
                       //console.log(global.data[i]["companyName"].toLowerCase());
                       global.accountData.push(global.data[i]);
+                      global.accountData[rowNumber]['rowNumber'] = ""+rowNumber;
+                      rowNumber += 1;
                     }
                   }
                   //console.log(global.accountData.length);
@@ -100,8 +102,6 @@ export default class LoginScreen extends Component {
             accessibilityLabel="Login to your account after typing in Username and Password"
           />
         </View>
-
-        <Text>Use UN: Lynx, PW: 123</Text>
 
       </View>
 

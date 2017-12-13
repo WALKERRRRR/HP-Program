@@ -9,85 +9,97 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
-import SortableList from 'react-native-sortable-list';
+import SortableList from '../components/my-sortable-list/src/SortableList.js';
 import { WebBrowser } from 'expo';
 import '../data/accountData.js';
 import '../data/data.js';
 import '../data/dashlets.js';
-import {listData} from './HomeScreen.js';
+//import {listData} from './HomeScreen.js';
 import SystemScreen from './SystemScreen'
+import './HomeScreen'
 
 
 const window = Dimensions.get('window');
+global.systemindex = 0;
+//var listData = global.listData;
 
 var systemData = {};
 var count = 0;
 // Object.keys(global.data).forEach(function(key) {
 while (count<20){
-    tempDict = {};
-    tempDict["text"] = global.data[count]['systemName'];
-    tempDict["id"] = 0;
-    tempDict["active"] = true;
-    tempDict["test"] = 1;
+  if(global.data[count]['includeInAggregate']){
+      tempDict = {};
+      tempDict["text"] = global.data[count]['systemName'];
+      tempDict["id"] = 0;
+      tempDict["active"] = true;
+      tempDict["test"] = 1;
 
-    systemData[count] = tempDict;
-    count++;
+      systemData[count] = tempDict;
+      count++;
+    }
 }
 // });
 
+// <View style={styles.titleContainer}>
+// <Text style={styles.title}>Dashlets</Text>
+// </View>
+// <SortableList
+//   style={styles.list}
+//   contentContainerStyle={styles.contentContainer}
+//   data={global.listData}
+//   renderRow={this._renderRow}
+//   onPressRow={this._displayModal}/>
+// <View style={styles.titleContainer}>
+// <Text style={styles.title}>System List</Text>
+// </View>
 
 export default class ConfigScreen extends Component {
   static navigationOptions = {
-    title: 'Dashboard Configuration',
+    title: 'My Systems',
   };
   render() {
+    console.log("----------------------------")
+    console.log(global.listData);
+    var listData = global.listData;
+    console.log(listData);
     return (
       <View style={styles.container}>
-        <View style={styles.titleContainer}>
-        <Text style={styles.title}>Dashlets</Text>
-        <Image
-          source={{ uri: 'http://clipart-library.com/images/8T65jX9Gc.png' }}
-          resizeMode="contain"
-          fadeDuration={0}
-          style={{ width: 30, height: 30, marginTop: 1, position: "absolute", bottom: 10, right: 30}}
-        />
-        </View>
-        <SortableList
-          style={styles.list}
-          contentContainerStyle={styles.contentContainer}
-          data={listData}
-          renderRow={this._renderRow}
-          onPressRow={this._displayModal}/>
-
-
-          <View style={styles.titleContainer}>
-          <Text style={styles.title}>System List</Text>
-          </View>
           <SortableList
             style={styles.list}
             contentContainerStyle={styles.contentContainer}
             data={systemData}
             renderRow={this._renderRow}
-            onPressRow={this._displayModal}/>
+            onPressRow={this._displayModal2}/>
 
       </View>
 
     );
   }
-  _displayModal = (key) => {
+  _displayModal2 = (key) => {
     const { navigate } = this.props.navigation;
+    global.systemindex = key;
     navigate('System', {systemindex: key});
     //return <SystemScreen navigation = {this.props.navigation} systemindex = {key}/>
   }
-  _renderRow = ({ data, active }) => {
-    return <Row data={data} active={active} />
+  _displayModal = (key) => {
+    return
+  }
+
+  _renderRow = ({ data, active, key, updateFunc }) => {
+    return <RemovableRow data={data} active={active} key={key} updateFunc={updateFunc}/>
   }
 }
 
-class Row extends Component {
+class RemovableRow extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+        activeRowKey: null,
+        visibleModal: false,
+        deleteModal: false,
+    }
 
     this._active = new Animated.Value(0);
 

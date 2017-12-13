@@ -85,7 +85,13 @@ export default class ProfileScreen extends React.Component {
           <Touchable
             style={styles.optionLogout}
             background={Touchable.Ripple('#ccc', false)}
+<<<<<<< HEAD
             onPress={() => <ExportScreen />}>
+=======
+            onPress={() => {
+              global.accountData = [];
+              this.props.navigation.dispatch(resetAction)}}>
+>>>>>>> origin/Logout-tempbranch
             <View style={{ flexDirection: 'row' }}>
               <View style={[styles.optionTextContainer, {
                 flex: 1,

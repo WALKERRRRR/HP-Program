@@ -122,7 +122,7 @@ const ListHeader = () => {
           {'Company: ' + global.data[global.systemindex]['companyName']}
         </Text>
         <Text style={styles.descriptionText}>
-          {'Included in dashlets: ' + global.data[global.systemindex]['includeInAggregate']}
+          {'In Dashlets: ' + global.data[global.systemindex]['includeInAggregate']}
         </Text>
       </View>
     </View>

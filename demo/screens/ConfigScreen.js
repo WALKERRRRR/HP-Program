@@ -9,7 +9,7 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
-import SortableList from 'react-native-sortable-list';
+import SortableList from '../components/my-sortable-list/src/SortableList.js';
 import { WebBrowser } from 'expo';
 import '../data/accountData.js';
 import '../data/data.js';
@@ -40,30 +40,30 @@ while (count<20){
 }
 // });
 
+// <View style={styles.titleContainer}>
+// <Text style={styles.title}>Dashlets</Text>
+// </View>
+// <SortableList
+//   style={styles.list}
+//   contentContainerStyle={styles.contentContainer}
+//   data={global.listData}
+//   renderRow={this._renderRow}
+//   onPressRow={this._displayModal}/>
+// <View style={styles.titleContainer}>
+// <Text style={styles.title}>System List</Text>
+// </View>
 
 export default class ConfigScreen extends Component {
   static navigationOptions = {
-    title: 'Dashboard Configuration',
+    title: 'My Systems',
   };
   render() {
+    console.log("----------------------------")
     console.log(global.listData);
     var listData = global.listData;
+    console.log(listData);
     return (
       <View style={styles.container}>
-        <View style={styles.titleContainer}>
-        <Text style={styles.title}>Dashlets</Text>
-        </View>
-        <SortableList
-          style={styles.list}
-          contentContainerStyle={styles.contentContainer}
-          data={listData}
-          renderRow={this._renderRow}
-          onPressRow={this._displayModal}/>
-
-
-          <View style={styles.titleContainer}>
-          <Text style={styles.title}>System List</Text>
-          </View>
           <SortableList
             style={styles.list}
             contentContainerStyle={styles.contentContainer}
@@ -84,6 +84,7 @@ export default class ConfigScreen extends Component {
   _displayModal = (key) => {
     return
   }
+
   _renderRow = ({ data, active, key, updateFunc }) => {
     return <RemovableRow data={data} active={active} key={key} updateFunc={updateFunc}/>
   }

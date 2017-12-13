@@ -10,10 +10,12 @@ export default class LinksScreen extends React.Component {
   static navigationOptions = {
     title: 'Search',
   };
-  state = {
+
+  state: {
     query: String,
     checked: Boolean,
-  };
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,14 +24,18 @@ export default class LinksScreen extends React.Component {
     };
   }
 
+
+
+
   render() {
 
-    tableHead = ['companyName', 'systemName', 'serialNumber','productFamily','model','osVersion','cpgCount','recommended.osVersion','location.region','location.country','installDate', 'updated'];
+
+    tableHead = ['companyName', 'systemName', 'serialNumber','productFamily','model','osVersion','cpgCount','recommended.osVersion','location.region','location.country','installDate', 'updated', 'rowNumber'];
 
     toProcess = global.accountData;
-    tableData = toProcess.map(elem => [elem['companyName'], elem['systemName'], elem['serialNumber'],elem['productFamily'],elem['model'],elem['osVersion'],elem['cpgCount'],elem['recommended.osVersion'],elem['location.region'],elem['location.country'],elem['installDate'], elem['updated']]);
+    tableData = toProcess.map(elem => [elem['companyName'], elem['systemName'], elem['serialNumber'],elem['productFamily'],elem['model'],elem['osVersion'],elem['cpgCount'],elem['recommended.osVersion'],elem['location.region'],elem['location.country'],elem['installDate'], elem['updated'], elem['rowNumber']]);
 
-    widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
+    widthArr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100];
     var query = this.state.query;
     var filteredTableData = query = '' ? tableData : tableData.filter(row=> row.some(elem => elem.includes(query)));
     return (
@@ -46,7 +52,7 @@ export default class LinksScreen extends React.Component {
             {
               filteredTableData.map((row, i) => (
                 <TouchableOpacity style={[styles.toggle, i%2 && {backgroundColor: '#DFF5F2'}]} widthArr={widthArr} textStyle={styles.listText} onPress ={function myFunction(){}}>
-                <CheckBox center checked={this.state.checked} onPress ={()=>this.setState({checked: !this.state.checked})}/>
+                <CheckBox center checked={global.accountData[parseInt(filteredTableData[i][12])]['includeInAggregate']} onPress ={()=>{global.accountData[parseInt(filteredTableData[i][12])]['includeInAggregate'] = !global.accountData[parseInt(filteredTableData[i][12])]['includeInAggregate']; this.setState({checked: !this.state.checked})}}/>
                 </TouchableOpacity>
               ))
             }

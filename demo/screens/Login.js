@@ -80,7 +80,7 @@ export default class LoginScreen extends Component {
                       //console.log(un);
                       //console.log(global.data[i]["companyName"].toLowerCase());
                       global.accountData.push(global.data[i]);
-                      global.accountData[rowNumber]['rowNumber'] = ""+rowNumber;
+                      global.accountData[rowNumber]['rowNumber'] = rowNumber.toString();
                       rowNumber += 1;
                     }
                   }

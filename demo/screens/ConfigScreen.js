@@ -20,7 +20,8 @@ import './HomeScreen'
 
 
 const window = Dimensions.get('window');
-var listData = global.listData;
+global.systemindex = 0;
+//var listData = global.listData;
 
 var systemData = {};
 var count = 0;
@@ -45,6 +46,8 @@ export default class ConfigScreen extends Component {
     title: 'Dashboard Configuration',
   };
   render() {
+    console.log(global.listData);
+    var listData = global.listData;
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
@@ -53,7 +56,7 @@ export default class ConfigScreen extends Component {
         <SortableList
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
-          data={global.listData}
+          data={listData}
           renderRow={this._renderRow}
           onPressRow={this._displayModal}/>
 
@@ -74,21 +77,28 @@ export default class ConfigScreen extends Component {
   }
   _displayModal2 = (key) => {
     const { navigate } = this.props.navigation;
+    global.systemindex = key;
     navigate('System', {systemindex: key});
     //return <SystemScreen navigation = {this.props.navigation} systemindex = {key}/>
   }
   _displayModal = (key) => {
     return
   }
-  _renderRow = ({ data, active }) => {
-    return <Row data={data} active={active} />
+  _renderRow = ({ data, active, key, updateFunc }) => {
+    return <RemovableRow data={data} active={active} key={key} updateFunc={updateFunc}/>
   }
 }
 
-class Row extends Component {
+class RemovableRow extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+        activeRowKey: null,
+        visibleModal: false,
+        deleteModal: false,
+    }
 
     this._active = new Animated.Value(0);
 

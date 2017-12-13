@@ -4,8 +4,9 @@ import { Constants } from 'expo';
 import '../data/accountData.js';
 import '../data/data.js';
 import '../data/dashlets.js';
+import './ConfigScreen';
 
-var systemindex = 0;
+//var global.systemindex = global.global.systemindex;
 
 export default class SystemScreen extends React.Component {
   static navigationOptions = {
@@ -13,59 +14,59 @@ export default class SystemScreen extends React.Component {
   };
   render() {
     const { manifest } = Constants;
-    //systemindex = this.props.navigation.params.index
+    //global.systemindex = this.props.navigation.params.index
     var sections = [
-      { data: [{ value: global.data[systemindex]['model'] }], title: 'model' },
-      { data: [{ value: global.data[systemindex]['disksState'] }], title: 'disksState' },
-      { data: [{ value: global.data[systemindex]['serialNumber'] }], title: 'serialNumber' },
+      { data: [{ value: global.data[global.systemindex]['model'] }], title: 'model' },
+      { data: [{ value: global.data[global.systemindex]['disksState'] }], title: 'disksState' },
+      { data: [{ value: global.data[global.systemindex]['serialNumber'] }], title: 'serialNumber' },
 
-      { data: [{ value: global.data[systemindex]['osVersion'] }], title: 'osVersion' },
-      { data: [{ value: global.data[systemindex]['productFamily'] }], title: 'productFamily' },
-      { data: [{ value: global.data[systemindex]['updated'] }], title: 'updated' },
-      { data: [{ value: global.data[systemindex]['installDate'] }], title: 'installDate' },
-      { data: [{ value: global.data[systemindex]['tpvvCount'] }], title: 'tpvvCount' },
-      { data: [{ value: global.data[systemindex]['vvCount'] }], title: 'vvCount' },
-      { data: [{ value: global.data[systemindex]['cpgCount'] }], title: 'cpgCount' },
+      { data: [{ value: global.data[global.systemindex]['osVersion'] }], title: 'osVersion' },
+      { data: [{ value: global.data[global.systemindex]['productFamily'] }], title: 'productFamily' },
+      { data: [{ value: global.data[global.systemindex]['updated'] }], title: 'updated' },
+      { data: [{ value: global.data[global.systemindex]['installDate'] }], title: 'installDate' },
+      { data: [{ value: global.data[global.systemindex]['tpvvCount'] }], title: 'tpvvCount' },
+      { data: [{ value: global.data[global.systemindex]['vvCount'] }], title: 'vvCount' },
+      { data: [{ value: global.data[global.systemindex]['cpgCount'] }], title: 'cpgCount' },
 
-      { data: [{ value: global.data[systemindex]['recommended.osVersion'] }], title: 'recommended.osVersion' },
+      { data: [{ value: global.data[global.systemindex]['recommended.osVersion'] }], title: 'recommended.osVersion' },
 
-      { data: [{ value: global.data[systemindex]['capacity.total.dedupeRatio'] }], title: 'capacity.total.dedupeRatio' },
-      { data: [{ value: global.data[systemindex]['capacity.total.compactionRatio'] }], title: 'capacity.total.compactionRatio' },
-      { data: [{ value: global.data[systemindex]['capacity.total.compressionRatio'] }], title: 'capacity.total.compressionRatio' },
-      { data: [{ value: global.data[systemindex]['capacity.byType.ssd.sizeTiB'] }], title: 'capacity.byType.ssd.sizeTiB' },
-      { data: [{ value: global.data[systemindex]['capacity.byType.ssd.freeTiB'] }], title: 'capacity.byType.ssd.freeTiB' },
-      { data: [{ value: global.data[systemindex]['capacity.byType.nl.sizeTiB'] }], title: 'capacity.byType.nl.sizeTiB' },
-      { data: [{ value: global.data[systemindex]['capacity.byType.nl.freeTiB'] }], title: 'capacity.byType.nl.freeTiB' },
-      { data: [{ value: global.data[systemindex]['capacity.byType.fc.sizeTiB'] }], title: 'capacity.byType.fc.sizeTiB' },
-      { data: [{ value: global.data[systemindex]['capacity.byType.fc.freeTiB'] }], title: 'capacity.byType.fc.freeTiB' },
-      { data: [{ value: global.data[systemindex]['capacity.total.sizeTiB'] }], title: 'capacity.total.sizeTiB' },
-      { data: [{ value: global.data[systemindex]['capacity.total.freeTiB'] }], title: 'capacity.total.freeTiB' },
-      { data: [{ value: global.data[systemindex]['capacity.total.freePct'] }], title: 'capacity.total.freePct' },
+      { data: [{ value: global.data[global.systemindex]['capacity.total.dedupeRatio'] }], title: 'capacity.total.dedupeRatio' },
+      { data: [{ value: global.data[global.systemindex]['capacity.total.compactionRatio'] }], title: 'capacity.total.compactionRatio' },
+      { data: [{ value: global.data[global.systemindex]['capacity.total.compressionRatio'] }], title: 'capacity.total.compressionRatio' },
+      { data: [{ value: global.data[global.systemindex]['capacity.byType.ssd.sizeTiB'] }], title: 'capacity.byType.ssd.sizeTiB' },
+      { data: [{ value: global.data[global.systemindex]['capacity.byType.ssd.freeTiB'] }], title: 'capacity.byType.ssd.freeTiB' },
+      { data: [{ value: global.data[global.systemindex]['capacity.byType.nl.sizeTiB'] }], title: 'capacity.byType.nl.sizeTiB' },
+      { data: [{ value: global.data[global.systemindex]['capacity.byType.nl.freeTiB'] }], title: 'capacity.byType.nl.freeTiB' },
+      { data: [{ value: global.data[global.systemindex]['capacity.byType.fc.sizeTiB'] }], title: 'capacity.byType.fc.sizeTiB' },
+      { data: [{ value: global.data[global.systemindex]['capacity.byType.fc.freeTiB'] }], title: 'capacity.byType.fc.freeTiB' },
+      { data: [{ value: global.data[global.systemindex]['capacity.total.sizeTiB'] }], title: 'capacity.total.sizeTiB' },
+      { data: [{ value: global.data[global.systemindex]['capacity.total.freeTiB'] }], title: 'capacity.total.freeTiB' },
+      { data: [{ value: global.data[global.systemindex]['capacity.total.freePct'] }], title: 'capacity.total.freePct' },
 
-      { data: [{ value: global.data[systemindex]['performance.summary.portInfo.totalServiceTimeMillis'] }], title: 'performance.summary.portInfo.totalServiceTimeMillis' },
-      { data: [{ value: global.data[systemindex]['performance.summary.portInfo.readServiceTimeMillis'] }], title: 'performance.summary.portInfo.readServiceTimeMillis' },
-      { data: [{ value: global.data[systemindex]['performance.summary.vvInfo.vvsByType.ssd.writeBandwidthMBPS'] }], title: 'performance.summary.vvInfo.vvsByType.ssd.writeBandwidthMBPS' },
-      { data: [{ value: global.data[systemindex]['performance.summary.portInfo.writeServiceTimeMillis'] }], title: 'performance.summary.portInfo.writeServiceTimeMillis' },
-      { data: [{ value: global.data[systemindex]['performance.summary.vvInfo.vvsByType.ssd.readServiceTimeMillis'] }], title: 'performance.summary.vvInfo.vvsByType.ssd.readServiceTimeMillis' },
-      { data: [{ value: global.data[systemindex]['performance.summary.vvInfo.vvsByType.ssd.writeServiceTimeMillis'] }], title: 'performance.summary.vvInfo.vvsByType.ssd.writeServiceTimeMillis' },
-      { data: [{ value: global.data[systemindex]['performance.portBandwidthData.total.dataRateKBPSAvg'] }], title: 'performance.portBandwidthData.total.dataRateKBPSAvg' },
-      { data: [{ value: global.data[systemindex]['performance.portBandwidthData.total.iopsAvg'] }], title: 'performance.portBandwidthData.total.iopsAvg' },
-      { data: [{ value: global.data[systemindex]['performance.summary.delAckPct'] }], title: 'performance.summary.delAckPct' },
-      { data: [{ value: global.data[systemindex]['performance.portBandwidthData.total.iopsMax'] }], title: 'performance.portBandwidthData.total.iopsMax' },
-      { data: [{ value: global.data[systemindex]['performance.summary.vvInfo.vvsByType.ssd.readBandwidthMBPS'] }], title: 'performance.summary.vvInfo.vvsByType.ssd.readBandwidthMBPS' },
+      { data: [{ value: global.data[global.systemindex]['performance.summary.portInfo.totalServiceTimeMillis'] }], title: 'performance.summary.portInfo.totalServiceTimeMillis' },
+      { data: [{ value: global.data[global.systemindex]['performance.summary.portInfo.readServiceTimeMillis'] }], title: 'performance.summary.portInfo.readServiceTimeMillis' },
+      { data: [{ value: global.data[global.systemindex]['performance.summary.vvInfo.vvsByType.ssd.writeBandwidthMBPS'] }], title: 'performance.summary.vvInfo.vvsByType.ssd.writeBandwidthMBPS' },
+      { data: [{ value: global.data[global.systemindex]['performance.summary.portInfo.writeServiceTimeMillis'] }], title: 'performance.summary.portInfo.writeServiceTimeMillis' },
+      { data: [{ value: global.data[global.systemindex]['performance.summary.vvInfo.vvsByType.ssd.readServiceTimeMillis'] }], title: 'performance.summary.vvInfo.vvsByType.ssd.readServiceTimeMillis' },
+      { data: [{ value: global.data[global.systemindex]['performance.summary.vvInfo.vvsByType.ssd.writeServiceTimeMillis'] }], title: 'performance.summary.vvInfo.vvsByType.ssd.writeServiceTimeMillis' },
+      { data: [{ value: global.data[global.systemindex]['performance.portBandwidthData.total.dataRateKBPSAvg'] }], title: 'performance.portBandwidthData.total.dataRateKBPSAvg' },
+      { data: [{ value: global.data[global.systemindex]['performance.portBandwidthData.total.iopsAvg'] }], title: 'performance.portBandwidthData.total.iopsAvg' },
+      { data: [{ value: global.data[global.systemindex]['performance.summary.delAckPct'] }], title: 'performance.summary.delAckPct' },
+      { data: [{ value: global.data[global.systemindex]['performance.portBandwidthData.total.iopsMax'] }], title: 'performance.portBandwidthData.total.iopsMax' },
+      { data: [{ value: global.data[global.systemindex]['performance.summary.vvInfo.vvsByType.ssd.readBandwidthMBPS'] }], title: 'performance.summary.vvInfo.vvsByType.ssd.readBandwidthMBPS' },
 
-      { data: [{ value: global.data[systemindex]['poo'] }], title: 'disks.total.diskCountNormal' },
-      { data: [{ value: global.data[systemindex]['poo'] }], title: 'disks.total.diskCount' },
-      { data: [{ value: global.data[systemindex]['poo'] }], title: 'disks.total.diskCountFailed' },
-      { data: [{ value: global.data[systemindex]['poo'] }], title: 'disks.total.diskCountDegraded' },
+      { data: [{ value: global.data[global.systemindex]['poo'] }], title: 'disks.total.diskCountNormal' },
+      { data: [{ value: global.data[global.systemindex]['poo'] }], title: 'disks.total.diskCount' },
+      { data: [{ value: global.data[global.systemindex]['poo'] }], title: 'disks.total.diskCountFailed' },
+      { data: [{ value: global.data[global.systemindex]['poo'] }], title: 'disks.total.diskCountDegraded' },
 
 
-      { data: [{ value: global.data[systemindex]['location.region'] }], title: 'location.region' },
-      { data: [{ value: global.data[systemindex]['location.country'] }], title: 'location.country' },
+      { data: [{ value: global.data[global.systemindex]['location.region'] }], title: 'location.region' },
+      { data: [{ value: global.data[global.systemindex]['location.country'] }], title: 'location.country' },
 
-      { data: [{ value: global.data[systemindex]['nodes.nodeCount'] }], title: 'nodes.nodeCount' },
-      { data: [{ value: global.data[systemindex]['nodes.cpuAvgMax'] }], title: 'nodes.cpuAvgMax' },
-      { data: [{ value: global.data[systemindex]['nodes.nodeCountOffline'] }], title: 'nodes.nodeCountOffline' },
+      { data: [{ value: global.data[global.systemindex]['nodes.nodeCount'] }], title: 'nodes.nodeCount' },
+      { data: [{ value: global.data[global.systemindex]['nodes.cpuAvgMax'] }], title: 'nodes.cpuAvgMax' },
+      { data: [{ value: global.data[global.systemindex]['nodes.nodeCountOffline'] }], title: 'nodes.nodeCountOffline' },
     ];
     return (
       <SectionList
@@ -114,14 +115,14 @@ const ListHeader = () => {
 
       <View style={styles.titleTextContainer}>
         <Text style={styles.nameText} numberOfLines={1}>
-          {global.data[systemindex]['systemName']}
+          {global.data[global.systemindex]['systemName']}
         </Text>
 
         <Text style={styles.slugText} numberOfLines={1}>
-          {'Company: ' + global.data[systemindex]['companyName']}
+          {'Company: ' + global.data[global.systemindex]['companyName']}
         </Text>
         <Text style={styles.descriptionText}>
-          {'Included in dashlets: ' + global.data[systemindex]['includeInAggregate']}
+          {'Included in dashlets: ' + global.data[global.systemindex]['includeInAggregate']}
         </Text>
       </View>
     </View>

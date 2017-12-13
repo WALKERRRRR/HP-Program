@@ -64,7 +64,7 @@ export default class ProfileScreen extends React.Component {
               </View>
               <View style={styles.optionTextContainer}>
                 <Text style={styles.optionText}>
-                  Dashboard Configuration
+                  My Systems
                 </Text>
               </View>
             </View>

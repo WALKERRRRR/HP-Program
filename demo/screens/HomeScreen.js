@@ -81,9 +81,8 @@ export default class Dashboard extends Component {
   state = {
         activeRowKey: null,
         visibleModal: null,
-        deleteModal: false,
-        refresh: 1,
   };
+
   _renderButton = (data, onPress) => (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -122,8 +121,10 @@ export default class Dashboard extends Component {
       </View>
     );
   }
-  _renderRow = ({ data, active, key }) => {
-    return <RemovableRow data={data} active={active} key={key}/>
+  
+  
+  _renderRow = ({ data, active, key, updateFunc }) => {
+    return <RemovableRow data={data} active={active} key={key} updateFunc={updateFunc}/>
   }
 }
 
@@ -195,23 +196,24 @@ class RemovableRow extends Component {
     </View>
   );
 
-  _renderCloseWindow = (data, temp) => (
+  _renderCloseWindow = (data, updateFunc) => (
     <View style={styles.modalContent}>
       <Text>Remove Dashlet?</Text>
       <View style={{width: 100, height: 50}}>
-            {this._renderButton({text: 'Yes'}, () => this._onRemove(data, temp))}
+            {this._renderButton({text: 'Yes'}, () => this._onRemove(data, updateFunc))}
             {this._renderButton({text: 'No'}, () => this.setState({ deleteModal: false }))}
       </View>
     </View>
   );
 
-  _onRemove (data, temp) {
+  _onRemove (data, updateFunc) {
       this.setState({deleteModal: false});
       data['active'] = false;
+      updateFunc();
   }
 
   render() {
-    const { data, active, temp } = this.props;
+    const { data, active, key, updateFunc } = this.props;
       
     const swipeSettings = {
         autoClose: true,
@@ -224,7 +226,6 @@ class RemovableRow extends Component {
         right: [
             {
                 onPress: () => {
-                    // data['active'] = false;
                     this.setState({deleteModal: true})
                 },
                 text: 'X', type: 'delete'
@@ -238,7 +239,7 @@ class RemovableRow extends Component {
             <Image source={{ uri: data.image }} style={styles.image} />
             {this._renderButton(data, () => this.setState({ visibleModal: 1 }))}
             <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent(data)}</Modal>
-            <Modal isVisible={this.state.deleteModal === true}>{this._renderCloseWindow(data, temp)}</Modal>
+            <Modal isVisible={this.state.deleteModal === true}>{this._renderCloseWindow(data, updateFunc)}</Modal>
         </View>
         <Swipeout {...swipeSettings}>
             <View style={styles.rowRight}>

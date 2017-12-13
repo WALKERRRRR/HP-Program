@@ -1,3 +1,27 @@
+/**
+ * Sample React Native App
+ * httpss://github.com/facebook/react-native
+ * @flow
+ *
+ *
+ * TODO
+ *
+ * Dashboard:
+ * Popup (Modal) on click on a dashlet - contains aggregate graphs and data
+ * Delete dashlet from dashboard
+ * add dashlet from template (+ in bottom right OR on bottom of dashboard)
+ *
+ * Dashlet:
+ * Aggregates
+ *  - count (group)
+ *  - total storage
+ *  - average disk space
+ * Can be swiped left to reveal remove button.
+ *
+ * Favorite systems list represented somehow - list of systems that dashboards aggregate to.
+ * These are systems that the aggregates talk about.
+ */
+
 import React, { Component } from 'react';
 import {
   Animated,
@@ -10,68 +34,60 @@ import {
   Dimensions,
   Platform,
   TouchableOpacity,
-    ScrollView,
+  ScrollView,
 } from 'react-native';
 import SortableList from '../components/my-sortable-list/src/SortableList.js';
 import { WebBrowser } from 'expo';
 import Swipeout from '../components/my-swipeout/dist/index.js'
-import Modal from 'react-native-modal'
-import '../data/data.js';
+import Modal from '../components/react-native-modal/src/index.js'
+
+const window = Dimensions.get('window')
 
 
 // listData will be where the system data is organized.
 const listData = {
   0: {
-    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
-    text: global.data[0]['systemName'],
-    id: 0,
-    active: true,
+    image: 'https://placekitten.com/200/240',
+    text: "Average Disk Size",
   },
   1: {
-    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
-    text: global.data[0]['systemName'],
-    id: 1,
-    active: true,
+    image: 'https://placekitten.com/200/201',
+    text: "Total Storage Space",
   },
   2: {
-    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
-    text: global.data[2]['systemName'],
-    id: 2,
-    active: true,
+    image: 'https://placekitten.com/200/202',
+    text: "Total Number of Disks",
   },
   3: {
-    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
-    text: global.data[3]['systemName'],
-    id: 3,
-    active: true,
+    image: 'https://placekitten.com/200/203',
+    text: ""
   },
   4: {
-    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
-    text: global.data[4]['systemName'],
-    id: 4,
-    active: true,
+    image: 'https://placekitten.com/200/204',
+    text: ""
   },
   5: {
-    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
-    text: global.data[5]['systemName'],
-    id: 5,
-    active: true,
+    image: 'https://placekitten.com/200/205',
+    text: ""
   },
   6: {
-    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
-    text: global.data[6]['systemName'],
-    id: 6,
-    active: true,
+    image: 'https://placekitten.com/200/210',
+    text: 'Kiki',
   },
   7: {
-    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
-    text: global.data[7]['systemName'],
-    id: 7,
-    active: true,
+    image: 'https://placekitten.com/200/215',
+    text: 'Smokey',
+  },
+  8: {
+    image: 'https://placekitten.com/200/220',
+    text: 'Gizmo',
+  },
+  9: {
+    image: 'https://placekitten.com/220/239',
+    text: 'Kitty',
   },
 };
 
-const window = Dimensions.get('window');
 
 export default class Dashboard extends Component {  
   static navigationOptions = {
@@ -81,8 +97,9 @@ export default class Dashboard extends Component {
   state = {
         activeRowKey: null,
         visibleModal: null,
+        deleteModal: false,
+        refresh: 1,
   };
-
   _renderButton = (data, onPress) => (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -122,20 +139,30 @@ export default class Dashboard extends Component {
     );
   }
   
-  
   _renderRow = ({ data, active, key, updateFunc }) => {
     return <RemovableRow data={data} active={active} key={key} updateFunc={updateFunc}/>
   }
+
+  _openAggregatePage = (aggregate) => {
+    // TODO: Open aggregate page and display this aggregate
+    return (
+      <AggregateScreen />
+    );
+  }
 }
 
+        
 class RemovableRow extends Component {
+
   constructor(props) {
     super(props);
-      
+
     this.state = {
         activeRowKey: null,
+        visibleModal: false,
+        deleteModal: false,
     }
-
+        
     this._active = new Animated.Value(0);
 
     this._style = {
@@ -178,7 +205,7 @@ class RemovableRow extends Component {
       }).start();
     }
   }
-    
+
   _renderButton = (data, onPress) => (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -234,7 +261,7 @@ class RemovableRow extends Component {
     }
 
     return (
-     <Animated.View style={[styles.row,this._style]}>
+      <Animated.View style={[styles.row,this._style]}>
         <View style={styles.rowLeft}>
             <Image source={{ uri: data.image }} style={styles.image} />
             {this._renderButton(data, () => this.setState({ visibleModal: 1 }))}
@@ -250,7 +277,6 @@ class RemovableRow extends Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

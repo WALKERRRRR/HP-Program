@@ -10,6 +10,9 @@ import registerForPushNotificationsAsync from '../api/registerForPushNotificatio
 
 const RootStackNavigator = StackNavigator(
   {
+    Login: {
+      screen: LoginScreen,
+    },
     Main: {
       screen: MainTabNavigator,
     },
@@ -19,9 +22,6 @@ const RootStackNavigator = StackNavigator(
     Config: {
       screen: ConfigScreen,
     }
-    // Login: {
-    //   screen: LoginScreen,
-    // },
   },
   {
     navigationOptions: () => ({

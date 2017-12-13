@@ -10,7 +10,6 @@ import RootNavigation from '../navigation/RootNavigation';
 import ExportScreen from './ExportScreen';
 import LoginScreen from './Login';
 import { StackNavigator } from 'react-navigation';
-import { NavigationActions } from 'react-navigation'
 
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
@@ -19,12 +18,6 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({ routeName: 'Login'})
-      ]
-    })
     return (
 
       <ScrollView style={styles.container}>
@@ -92,9 +85,13 @@ export default class ProfileScreen extends React.Component {
           <Touchable
             style={styles.optionLogout}
             background={Touchable.Ripple('#ccc', false)}
+<<<<<<< HEAD
+            onPress={() => <ExportScreen />}>
+=======
             onPress={() => {
               global.accountData = [];
               this.props.navigation.dispatch(resetAction)}}>
+>>>>>>> origin/Logout-tempbranch
             <View style={{ flexDirection: 'row' }}>
               <View style={[styles.optionTextContainer, {
                 flex: 1,

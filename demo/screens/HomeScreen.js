@@ -2,24 +2,24 @@
  * Sample React Native App
  * httpss://github.com/facebook/react-native
  * @flow
- *
- *
+ * 
+ * 
  * TODO
- *
+ * 
  * Dashboard:
  * Popup (Modal) on click on a dashlet - contains aggregate graphs and data
  * Delete dashlet from dashboard
  * add dashlet from template (+ in bottom right OR on bottom of dashboard)
- *
+ * 
  * Dashlet:
  * Aggregates
  *  - count (group)
  *  - total storage
  *  - average disk space
  * Can be swiped left to reveal remove button.
- *
- * Favorite systems list represented somehow - list of systems that dashboards aggregate to.
- * These are systems that the aggregates talk about.
+ *  
+ * Favorite systems list represented somehow - list of systems that dashboards aggregate to. 
+ * These are systems that the aggregates talk about.  
  */
 
 import React, { Component } from 'react';
@@ -87,13 +87,10 @@ const listData = {
 
 
 export default class Basic extends Component {
-  static navigationOptions = {
-    title: 'Dashboard',
-  };
-
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.title}>My Systems Dashboard</Text>
         <SortableList
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
@@ -101,7 +98,7 @@ export default class Basic extends Component {
           order={global.dashletOrder}
           sortingEnabled = {true}
           toggleRowActive = {true}
-          renderRow={this._renderRow}
+          renderRow={this._renderRow} 
           onPressRow={this._renderModalContent}
         />
       </View>

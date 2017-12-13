@@ -202,7 +202,7 @@ export default class SortableList extends Component {
             }
         }
     }
-    // Check for active dashlets not on the list. add them to the end
+    // Check for active dashlets not on the list add them to the end
     for (key in data) {
         if (data[key]['active'] == true && !order.includes(key)) {
             order.push(key);

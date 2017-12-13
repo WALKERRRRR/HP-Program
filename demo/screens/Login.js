@@ -103,8 +103,6 @@ export default class LoginScreen extends Component {
           />
         </View>
 
-        <Text>Use UN: Lynx, PW: 123</Text>
-
       </View>
 
     );

@@ -27,7 +27,7 @@ export default class ExportScreen extends React.Component {
       <View style = {styles.container}>
         <TextInput style = {styles.input}
           underlineColorAndroid = "transparent"
-          placeholder = "  Filename"
+          placeholder = "Filename"
           placeholderTextColor = "#808080"
           autoCapitalize = "none"
           onChangeText = {this.handleFilename}/>
@@ -35,7 +35,7 @@ export default class ExportScreen extends React.Component {
 
         <TextInput style = {styles.input}
           underlineColorAndroid = "transparent"
-          placeholder = "  Recipient"
+          placeholder = "Recipient"
           placeholderTextColor = "#808080"
           autoCapitalize = "none"
           onChangeText = {this.handleEmail}/>
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
      marginLeft: 40,
      marginRight: 40,
      borderRadius: 7,
+     padding: 10
   },
   optionText: {
     textAlign: 'center',

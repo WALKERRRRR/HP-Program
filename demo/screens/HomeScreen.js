@@ -515,7 +515,6 @@ const styles = StyleSheet.create({
   },
 
   textBox: {
-    // fontSize: 20,
     color: '#222222',
   },
 });

@@ -334,7 +334,7 @@ class RemovableRow extends Component {
 
   _renderButton1 = (data, onPress) => (
     <TouchableOpacity onPress={onPress}>
-      <View style={styles.text1}>
+      <View style={styles.textBox}>
         <Text style={styles.text}>{data.id + ": " + data.text}</Text>
       </View>
     </TouchableOpacity>
@@ -351,13 +351,13 @@ class RemovableRow extends Component {
 
   _renderModalContent = (data) => (
     <View style={styles.modalContent}>
-      <Text style = {styles.text1}>{'Last Update Time: '}</Text>
-      <Text style = {styles.text1}>{data.lastUpdate}</Text>
-      <Text style = {styles.text1}>{'System Model: '+ data.model}</Text>
-      <Text style = {styles.text1}>{'Storage Available: '+ Math.round(data.percentAva*10)/10 + "%"}</Text>
-      <Text style = {styles.text1}>{'Total Storage Available: '+ Math.round(data.totalAva*10)/10 + "TiB"}</Text>
-      <Text style = {styles.text1}>{'Average Write Speed: '+ Math.round(data.writeSpeed*10)/10+ ' mills'}</Text>
-      <Text style = {styles.text1}>{'Average Read Speed: '+ Math.round(data.readSpeed*10)/10 + ' mills'}</Text>
+      <Text style = {styles.text}>{'Last Update Time: '}</Text>
+      <Text style = {styles.text}>{data.lastUpdate}</Text>
+      <Text style = {styles.text}>{'System Model: '+ data.model}</Text>
+      <Text style = {styles.text}>{'Storage Available: '+ Math.round(data.percentAva*10)/10 + "%"}</Text>
+      <Text style = {styles.text}>{'Total Storage Available: '+ Math.round(data.totalAva*10)/10 + "TiB"}</Text>
+      <Text style = {styles.text}>{'Average Write Speed: '+ Math.round(data.writeSpeed*10)/10+ ' mills'}</Text>
+      <Text style = {styles.text}>{'Average Read Speed: '+ Math.round(data.readSpeed*10)/10 + ' mills'}</Text>
       {this._renderButton({text: 'Close'}, () => this.setState({ visibleModal: null }))}
     </View>
   );
@@ -513,8 +513,8 @@ const styles = StyleSheet.create({
     color: '#222222',
   },
 
-  text1: {
-    fontSize: 20,
+  textBox: {
+    // fontSize: 20,
     color: '#222222',
   },
 });

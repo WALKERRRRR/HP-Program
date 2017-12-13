@@ -271,7 +271,7 @@ export default class SortableList extends Component {
           {renderRow({
             key,
             data: data[key],
-            temp: this,
+            updateFunc: () => {this.forceUpdate()},
             disabled: !sortingEnabled,
             active,
             index,

@@ -13,6 +13,7 @@ export default class SystemScreen extends React.Component {
   };
   render() {
     const { manifest } = Constants;
+    //systemindex = this.props.navigation.params.index
     var sections = [
       { data: [{ value: global.data[systemindex]['model'] }], title: 'model' },
       { data: [{ value: global.data[systemindex]['disksState'] }], title: 'disksState' },
@@ -120,7 +121,7 @@ const ListHeader = () => {
           {'Company: ' + global.data[systemindex]['companyName']}
         </Text>
         <Text style={styles.descriptionText}>
-          {'Dashlet: ' + global.data[systemindex]['includeInAggregate']}
+          {'Included in dashlets: ' + global.data[systemindex]['includeInAggregate']}
         </Text>
       </View>
     </View>

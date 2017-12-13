@@ -51,7 +51,7 @@ const userList = {
 }
 
 // listData will be where the system data is organized.
-const listData = {
+global.listData = {
   0: {
     image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
     text: global.data[0]['systemName'],

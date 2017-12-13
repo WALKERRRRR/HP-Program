@@ -33,6 +33,7 @@ const RootStackNavigator = StackNavigator(
 );
 
 export default class RootNavigator extends React.Component {
+
   componentDidMount() {
     this._notificationSubscription = this._registerForPushNotifications();
   }

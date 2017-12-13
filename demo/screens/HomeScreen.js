@@ -39,18 +39,13 @@ import {
 import { WebBrowser } from 'expo';
 import CustomMultiPicker from '../components/react-native-multiple-select-list/multipleSelect.js';
 import SortableList from '../components/my-sortable-list/src/SortableList.js';
-import Swipeout from '../components/my-swipeout/dist/index.js'
-import Modal from '../components/react-native-modal/src/index.js'
+import Swipeout from '../components/my-swipeout/dist/index.js';
+import Modal from '../components/react-native-modal/src/index.js';
+import DashletManager from '../components/dashboard/DashletManager.js'
 
-const window = Dimensions.get('window')
+const window = Dimensions.get('window');
+const DashManager = new DashletManager([]);
 
-const userList = {
-  "123":"Tom",
-  "124":"Michael",
-  "125":"Christin"
-}
-
-// listData will be where the system data is organized.
 // listData will be where the system data is organized.
 const listData = {
   0: {
@@ -73,7 +68,7 @@ const listData = {
     text: global.data[2]['systemName'],
     id: 2,
     active: true,
-                test : 1,
+    test : 1,
 
   },
   3: {
@@ -119,6 +114,7 @@ const listData = {
 };
 
 export default class Dashboard extends Component {  
+    
   static navigationOptions = {
     title: 'Dashboard',
   };
@@ -127,6 +123,7 @@ export default class Dashboard extends Component {
         activeRowKey: null,
         addDashlet: false,
         toAdd: null,
+        manager: DashletManager,
   };
   
   // Button to Add Dashlets to the Board
@@ -138,16 +135,7 @@ export default class Dashboard extends Component {
     </TouchableOpacity>
   );
 
-  _getInactiveDashlet() {
-      temp = {}
-      for (x in listData) {
-          if (listData[x]['active'] == false) {
-              temp[x] = listData[x]['text']
-          }
-      }
-      return temp;
-  }
-
+  // Function to render the Add Dashlet Window
   _renderModalContent = () => (
     <View style={styles.modalContent}>
       <View style={{height: 50, alignSelf: 'stretch', backgroundColor: 'powderblue',borderRadius: 2, alignItems: 'center'}}>
@@ -155,7 +143,7 @@ export default class Dashboard extends Component {
       </View>
       <View style={{alignSelf: 'stretch', height: 200}}>
       <CustomMultiPicker
-          options={this._getInactiveDashlet()}
+          options={this.state.manager._getInActiveDashlets()}
           search={false} // dont show search bar
           multiple={true} // can select multiple
           returnValue={"key"} // label or value
@@ -178,19 +166,22 @@ export default class Dashboard extends Component {
     </View>
   );
                     
+  // Updates the data in the dashlets
+  _updateDashlets(data) {
+    // TODO: implement me!
+  }
+                    
   // Sets selected dashlets to active
   // Then forces an update
   _addDashletHelper() {
-    toAdd = this.state.toAdd;
-    for (var i = 0; i < toAdd.length; i++) {
-        listData[toAdd[i]]['active'] = true;
-    }
+    // Call the helper function in the dashlet manager
+    this.state.manager._setActiveDashlets(this.state.toAdd)
     // Turn off the add dashlet modal and clear toAdd
     this.setState({ addDashlet: false, toAdd: null });
     // force update :(
     this.forceUpdate()
   }
-
+  
   // 
   _renderButton = (data, onPress) => (
     <TouchableOpacity onPress={onPress}>
@@ -204,11 +195,10 @@ export default class Dashboard extends Component {
   render() {
     return (
       <View style={styles.container}>
-
         <SortableList
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
-          data={listData}
+          data={this.state.manager._getDashlets()}
           renderRow={this._renderRow}/>
         {this._renderAddButton(() => this.setState({ addDashlet: true }))}
         <Modal isVisible={this.state.addDashlet === true}>{this._renderModalContent()}
@@ -217,8 +207,8 @@ export default class Dashboard extends Component {
     );
   }
   
-  _renderRow = ({ data, active, key, updateFunc }) => {
-    return <RemovableRow data={data} active={active} key={key} updateFunc={updateFunc}/>
+  _renderRow = ({ dashlet, active, key, updateFunc }) => {
+    return <RemovableRow dashlet={dashlet} active={active} key={key} updateFunc={updateFunc}/>
   }
 
   _openAggregatePage = (aggregate) => {
@@ -293,32 +283,32 @@ class RemovableRow extends Component {
   );
 
 
-  _renderModalContent = (data) => (
+  _renderModalContent = (dashlet) => (
     <View style={styles.modalContent}>
       <Image source={ require('../images/ds.jpg')} style={styles.modalImage} />
       <Text>total Storage avalible</Text>
-      {this._renderButton({text: 'Close'}, () => this.setState({ visibleModal: null }))}
+      {this._renderButton({text: 'Close'}, () => this.setState({ visibleModal: false }))}
     </View>
   );
 
-  _renderCloseWindow = (data, updateFunc) => (
+  _renderCloseWindow = (dashlet, updateFunc) => (
     <View style={styles.modalContent}>
       <Text>Remove Dashlet?</Text>
       <View style={{width: 100, height: 50}}>
-            {this._renderButton({text: 'Yes'}, () => this._onRemove(data, updateFunc))}
+            {this._renderButton({text: 'Yes'}, () => this._onRemove(dashlet, updateFunc))}
             {this._renderButton({text: 'No'}, () => this.setState({ deleteModal: false }))}
       </View>
     </View>
   );
 
-  _onRemove (data, updateFunc) {
+  _onRemove (dashlet, updateFunc) {
       this.setState({deleteModal: false});
-      data['active'] = false;
+      dashlet._setAsInactive();
       updateFunc();
   }
 
   render() {
-    const { data, active, key, updateFunc } = this.props;
+    const { dashlet, active, key, updateFunc } = this.props;
       
     const swipeSettings = {
         autoClose: true,
@@ -341,10 +331,10 @@ class RemovableRow extends Component {
     return (
       <Animated.View style={[styles.row,this._style]}>
         <View style={styles.rowLeft}>
-            <Image source={{ uri: data.image }} style={styles.image} />
-            {this._renderButton(data, () => this.setState({ visibleModal: 1 }))}
-            <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent(data)}</Modal>
-            <Modal isVisible={this.state.deleteModal === true}>{this._renderCloseWindow(data, updateFunc)}</Modal>
+            dashlet.view
+            {this._renderButton(dashlet, () => this.setState({ visibleModal: 1 }))}
+            <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent(dashlet)}</Modal>
+            <Modal isVisible={this.state.deleteModal === true}>{this._renderCloseWindow(dashlet, updateFunc)}</Modal>
         </View>
         <Swipeout {...swipeSettings}>
             <View style={styles.rowRight}>

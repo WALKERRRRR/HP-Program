@@ -10,7 +10,7 @@ def contruct():
     for line in dic:
         # if rowCount == 250:
         #     break
-        if 'Zombie' in line or 'Lynx' in line:
+        if 'Zombie' in line:# or 'Lynx' in line:
             data.append({})
             entries = line.replace('"','').replace('\n','').split(',')
             colCount = 0
@@ -26,7 +26,7 @@ def contruct():
 
 def isolateCompany(data):
     for entry in data:
-        if entry["companyName"] != "Zombie" and entry["companyName"] != "Lynx":
+        if entry["companyName"] != "Zombie":# and entry["companyName"] != "Lynx":
             data.remove(entry)
     return data
 
@@ -40,7 +40,7 @@ def addRowNumber(data):
 
 if __name__ == '__main__':
     data = contruct()
-    outfile = open('constructed-data-demo.js', 'w')
+    outfile = open('constructed-data-demo-zombie.js', 'w')
     outfile.write('global.data = ')
     data = isolateCompany(data)
     data = addRowNumber(data)

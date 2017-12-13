@@ -193,14 +193,19 @@ export default class SortableList extends Component {
       });
     }
       
-    // Check for inactive dashlets
-    // Where to put?
+    // Check for inactive dashlets currently on the list
     for (var key in data) {
         if (data[key]['active'] == false) {
             ind = order.indexOf(key);
             if (ind != -1) {
                 order.splice(ind, 1);  
             }
+        }
+    }
+    // Check for active dashlets not on the list. add them to the end
+    for (key in data) {
+        if (data[key]['active'] == true && !order.includes(key)) {
+            order.push(key);
         }
     }
 

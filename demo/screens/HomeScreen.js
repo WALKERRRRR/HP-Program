@@ -36,58 +36,87 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import SortableList from '../components/my-sortable-list/src/SortableList.js';
 import { WebBrowser } from 'expo';
+import CustomMultiPicker from '../components/react-native-multiple-select-list/multipleSelect.js';
+import SortableList from '../components/my-sortable-list/src/SortableList.js';
 import Swipeout from '../components/my-swipeout/dist/index.js'
 import Modal from '../components/react-native-modal/src/index.js'
 
 const window = Dimensions.get('window')
 
+const userList = {
+  "123":"Tom",
+  "124":"Michael",
+  "125":"Christin"
+}
 
+// listData will be where the system data is organized.
 // listData will be where the system data is organized.
 const listData = {
   0: {
-    image: 'https://placekitten.com/200/240',
-    text: "Average Disk Size",
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[0]['systemName'],
+    id: 0,
+    active: true,
+    test : 1,
   },
   1: {
-    image: 'https://placekitten.com/200/201',
-    text: "Total Storage Space",
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[0]['systemName'],
+    id: 1,
+    active: true,
+    test : 1,
+
   },
   2: {
-    image: 'https://placekitten.com/200/202',
-    text: "Total Number of Disks",
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[2]['systemName'],
+    id: 2,
+    active: true,
+                test : 1,
+
   },
   3: {
-    image: 'https://placekitten.com/200/203',
-    text: ""
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[3]['systemName'],
+    id: 3,
+    active: true,          
+      test : 1,
+
   },
   4: {
-    image: 'https://placekitten.com/200/204',
-    text: ""
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[4]['systemName'],
+    id: 4,
+    active: true,
+                test : 1,
+
   },
   5: {
-    image: 'https://placekitten.com/200/205',
-    text: ""
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[5]['systemName'],
+    id: 5,
+    active: true,
+                test : 1,
+
   },
   6: {
-    image: 'https://placekitten.com/200/210',
-    text: 'Kiki',
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[6]['systemName'],
+    id: 6,
+    active: true,
+                test : 0,
+
   },
   7: {
-    image: 'https://placekitten.com/200/215',
-    text: 'Smokey',
-  },
-  8: {
-    image: 'https://placekitten.com/200/220',
-    text: 'Gizmo',
-  },
-  9: {
-    image: 'https://placekitten.com/220/239',
-    text: 'Kitty',
+    image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
+    text: global.data[7]['systemName'],
+    id: 7,
+    active: true,
+                test : 0,
+
   },
 };
-
 
 export default class Dashboard extends Component {  
   static navigationOptions = {
@@ -96,10 +125,73 @@ export default class Dashboard extends Component {
 
   state = {
         activeRowKey: null,
-        visibleModal: null,
-        deleteModal: false,
-        refresh: 1,
+        addDashlet: false,
+        toAdd: null,
   };
+  
+  // Button to Add Dashlets to the Board
+  _renderAddButton = (onPress) => (
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.addButton}>
+        <Text style={styles.text}>Add new system</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  _getInactiveDashlet() {
+      temp = {}
+      for (x in listData) {
+          if (listData[x]['active'] == false) {
+              temp[x] = listData[x]['text']
+          }
+      }
+      return temp;
+  }
+
+  _renderModalContent = () => (
+    <View style={styles.modalContent}>
+      <View style={{height: 50, alignSelf: 'stretch', backgroundColor: 'powderblue',borderRadius: 2, alignItems: 'center'}}>
+        <Text style={styles.text}>Select Dashlets to Add</Text>
+      </View>
+      <View style={{alignSelf: 'stretch', height: 200}}>
+      <CustomMultiPicker
+          options={this._getInactiveDashlet()}
+          search={false} // dont show search bar
+          multiple={true} // can select multiple
+          returnValue={"key"} // label or value
+          callback={(res)=>{ this.setState({toAdd: res}) }} //set toAdd in the state
+          rowBackgroundColor={"#eee"}
+          rowHeight={40}
+          rowRadius={5}
+          iconColor={"#00a2dd"}
+          iconSize={30}
+          selectedIconName={"ios-checkmark-circle-outline"}
+          unselectedIconName={"ios-radio-button-off-outline"}
+          scrollViewHeight={100}
+          selected={[]}
+        />
+        </View>
+        <View style={{backgroundColor: 'lightgrey', alignSelf: 'stretch', borderRadius: 2}}>
+          {this._renderButton({text: 'Add'}, () => this._addDashletHelper())}       
+          {this._renderButton({text: 'Cancel'}, () => this.setState({ addDashlet: false, toAdd: null }))}
+        </View>
+    </View>
+  );
+                    
+  // Sets selected dashlets to active
+  // Then forces an update
+  _addDashletHelper() {
+    toAdd = this.state.toAdd;
+    for (var i = 0; i < toAdd.length; i++) {
+        listData[toAdd[i]]['active'] = true;
+    }
+    // Turn off the add dashlet modal and clear toAdd
+    this.setState({ addDashlet: false, toAdd: null });
+    // force update :(
+    this.forceUpdate()
+  }
+
+  // 
   _renderButton = (data, onPress) => (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -108,20 +200,6 @@ export default class Dashboard extends Component {
     </TouchableOpacity>
   );
 
-  _renderButton1 = (onPress) => (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.addButton}>
-        <Text style={styles.text}>Add new system</Text>
-      </View>
-    </TouchableOpacity>
-  );
-
-  _renderModalContent1 = () => (
-    <View style={styles.modalContent}>
-      <Text>No system avaliable</Text>
-      {this._renderButton({text: 'Cancel'}, () => this.setState({ visibleModal: null }))}
-    </View>
-  );
 
   render() {
     return (
@@ -132,8 +210,8 @@ export default class Dashboard extends Component {
           contentContainerStyle={styles.contentContainer}
           data={listData}
           renderRow={this._renderRow}/>
-        {this._renderButton1(() => this.setState({ visibleModal: 1 }))}
-        <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent1()}
+        {this._renderAddButton(() => this.setState({ addDashlet: true }))}
+        <Modal isVisible={this.state.addDashlet === true}>{this._renderModalContent()}
         </Modal>
       </View>
     );

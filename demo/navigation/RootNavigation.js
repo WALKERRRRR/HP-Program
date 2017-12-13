@@ -4,6 +4,7 @@ import { StackNavigator } from 'react-navigation';
 
 import ExportScreen from '../screens/ExportScreen';
 import ConfigScreen from '../screens/ConfigScreen';
+import SystemScreen from '../screens/SystemScreen';
 import LoginScreen from '../screens/Login';
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
@@ -21,7 +22,10 @@ const RootStackNavigator = StackNavigator(
     },
     Config: {
       screen: ConfigScreen,
-    }
+    },
+    System: {
+      screen: SystemScreen,
+    },
   },
   {
     navigationOptions: () => ({

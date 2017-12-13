@@ -12,6 +12,8 @@ import LoginScreen from './Login';
 import { StackNavigator } from 'react-navigation';
 import { NavigationActions } from 'react-navigation'
 
+import {usernameUpdate} from './Login.js'
+
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
     title: 'Profile',
@@ -40,7 +42,7 @@ export default class ProfileScreen extends React.Component {
           <View style={styles.titleTextContainer}>
             <View style={styles.centerText}>
               <Text style={styles.nameText} numberOfLines={1}>
-                {"Username"}
+                {usernameUpdate}
               </Text>
             </View>
           </View>

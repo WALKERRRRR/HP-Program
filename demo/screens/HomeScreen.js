@@ -39,13 +39,18 @@ import {
 import { WebBrowser } from 'expo';
 import CustomMultiPicker from '../components/react-native-multiple-select-list/multipleSelect.js';
 import SortableList from '../components/my-sortable-list/src/SortableList.js';
-import Swipeout from '../components/my-swipeout/dist/index.js';
-import Modal from '../components/react-native-modal/src/index.js';
-import DashletManager from '../components/dashboard/DashletManager.js'
+import Swipeout from '../components/my-swipeout/dist/index.js'
+import Modal from '../components/react-native-modal/src/index.js'
 
-const window = Dimensions.get('window');
-const DashManager = new DashletManager([]);
+const window = Dimensions.get('window')
 
+const userList = {
+  "123":"Tom",
+  "124":"Michael",
+  "125":"Christin"
+}
+
+// listData will be where the system data is organized.
 // listData will be where the system data is organized.
 const listData = {
   0: {
@@ -54,13 +59,25 @@ const listData = {
     id: 0,
     active: true,
     test : 1,
+    lastUpdate: global.data[0]['updated'],
+    model: global.data[0]['model'],
+    percentAva: global.data[0]['capacity.total.freePct'],
+    totalAva:global.data[0]['capacity.total.freeTiB'],
+    readSpeed: global.data[0]['performance.summary.portInfo.readServiceTimeMillis'],
+    writeSpeed: global.data[0]['performance.summary.portInfo.writeServiceTimeMillis'],      
   },
   1: {
     image: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png',
     text: global.data[0]['systemName'],
     id: 1,
     active: true,
-    test : 1,
+          test : 1,
+          lastUpdate: global.data[1]['updated'],
+    model: global.data[1]['model'],
+    percentAva: global.data[1]['capacity.total.freePct'],
+    totalAva:global.data[1]['capacity.total.freeTiB'],
+    readSpeed: global.data[1]['performance.summary.portInfo.readServiceTimeMillis'],
+    writeSpeed: global.data[1]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   2: {
@@ -69,6 +86,12 @@ const listData = {
     id: 2,
     active: true,
     test : 1,
+    lastUpdate: global.data[2]['updated'],
+    model: global.data[2]['model'],
+    percentAva: global.data[2]['capacity.total.freePct'],
+    totalAva:global.data[2]['capacity.total.freeTiB'],
+    readSpeed: global.data[2]['performance.summary.portInfo.readServiceTimeMillis'],
+    writeSpeed: global.data[2]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   3: {
@@ -76,7 +99,13 @@ const listData = {
     text: global.data[3]['systemName'],
     id: 3,
     active: true,          
-      test : 1,
+    test : 1,
+    lastUpdate: global.data[3]['updated'],
+    model: global.data[3]['model'],
+    percentAva: global.data[3]['capacity.total.freePct'],
+    totalAva:global.data[3]['capacity.total.freeTiB'],
+    readSpeed: global.data[3]['performance.summary.portInfo.readServiceTimeMillis'],
+    writeSpeed: global.data[3]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   4: {
@@ -85,6 +114,12 @@ const listData = {
     id: 4,
     active: true,
                 test : 1,
+          lastUpdate: global.data[4]['updated'],
+    model: global.data[4]['model'],
+    percentAva: global.data[4]['capacity.total.freePct'],
+    totalAva:global.data[4]['capacity.total.freeTiB'],
+    readSpeed: global.data[4]['performance.summary.portInfo.readServiceTimeMillis'],
+    writeSpeed: global.data[4]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   5: {
@@ -92,7 +127,13 @@ const listData = {
     text: global.data[5]['systemName'],
     id: 5,
     active: true,
-                test : 1,
+    test : 1,
+    lastUpdate: global.data[5]['updated'],
+    model: global.data[5]['model'],
+    percentAva: global.data[5]['capacity.total.freePct'],
+    totalAva:global.data[5]['capacity.total.freeTiB'],
+    readSpeed: global.data[5]['performance.summary.portInfo.readServiceTimeMillis'],
+    writeSpeed: global.data[5]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   6: {
@@ -100,7 +141,13 @@ const listData = {
     text: global.data[6]['systemName'],
     id: 6,
     active: true,
-                test : 0,
+    test : 0,
+    lastUpdate: global.data[6]['updated'],
+    model: global.data[6]['model'],
+    percentAva: global.data[6]['capacity.total.freePct'],
+    totalAva:global.data[6]['capacity.total.freeTiB'],
+    readSpeed: global.data[6]['performance.summary.portInfo.readServiceTimeMillis'],
+    writeSpeed: global.data[6]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
   7: {
@@ -108,13 +155,18 @@ const listData = {
     text: global.data[7]['systemName'],
     id: 7,
     active: true,
-                test : 0,
+    test : 0,
+    lastUpdate: global.data[7]['updated'],
+    model: global.data[7]['model'],
+    percentAva: global.data[7]['capacity.total.freePct'],
+    totalAva:global.data[7]['capacity.total.freeTiB'],
+    readSpeed: global.data[7]['performance.summary.portInfo.readServiceTimeMillis'],
+    writeSpeed: global.data[7]['performance.summary.portInfo.writeServiceTimeMillis'],  
 
   },
 };
 
 export default class Dashboard extends Component {  
-    
   static navigationOptions = {
     title: 'Dashboard',
   };
@@ -123,7 +175,6 @@ export default class Dashboard extends Component {
         activeRowKey: null,
         addDashlet: false,
         toAdd: null,
-        manager: DashletManager,
   };
   
   // Button to Add Dashlets to the Board
@@ -135,7 +186,16 @@ export default class Dashboard extends Component {
     </TouchableOpacity>
   );
 
-  // Function to render the Add Dashlet Window
+  _getInactiveDashlet() {
+      temp = {}
+      for (x in listData) {
+          if (listData[x]['active'] == false) {
+              temp[x] = listData[x]['text']
+          }
+      }
+      return temp;
+  }
+
   _renderModalContent = () => (
     <View style={styles.modalContent}>
       <View style={{height: 50, alignSelf: 'stretch', backgroundColor: 'powderblue',borderRadius: 2, alignItems: 'center'}}>
@@ -143,7 +203,7 @@ export default class Dashboard extends Component {
       </View>
       <View style={{alignSelf: 'stretch', height: 200}}>
       <CustomMultiPicker
-          options={this.state.manager._getInActiveDashlets()}
+          options={this._getInactiveDashlet()}
           search={false} // dont show search bar
           multiple={true} // can select multiple
           returnValue={"key"} // label or value
@@ -166,22 +226,19 @@ export default class Dashboard extends Component {
     </View>
   );
                     
-  // Updates the data in the dashlets
-  _updateDashlets(data) {
-    // TODO: implement me!
-  }
-                    
   // Sets selected dashlets to active
   // Then forces an update
   _addDashletHelper() {
-    // Call the helper function in the dashlet manager
-    this.state.manager._setActiveDashlets(this.state.toAdd)
+    toAdd = this.state.toAdd;
+    for (var i = 0; i < toAdd.length; i++) {
+        listData[toAdd[i]]['active'] = true;
+    }
     // Turn off the add dashlet modal and clear toAdd
     this.setState({ addDashlet: false, toAdd: null });
     // force update :(
     this.forceUpdate()
   }
-  
+
   // 
   _renderButton = (data, onPress) => (
     <TouchableOpacity onPress={onPress}>
@@ -195,10 +252,11 @@ export default class Dashboard extends Component {
   render() {
     return (
       <View style={styles.container}>
+
         <SortableList
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
-          data={this.state.manager._getDashlets()}
+          data={listData}
           renderRow={this._renderRow}/>
         {this._renderAddButton(() => this.setState({ addDashlet: true }))}
         <Modal isVisible={this.state.addDashlet === true}>{this._renderModalContent()}
@@ -207,8 +265,8 @@ export default class Dashboard extends Component {
     );
   }
   
-  _renderRow = ({ dashlet, active, key, updateFunc }) => {
-    return <RemovableRow dashlet={dashlet} active={active} key={key} updateFunc={updateFunc}/>
+  _renderRow = ({ data, active, key, updateFunc }) => {
+    return <RemovableRow data={data} active={active} key={key} updateFunc={updateFunc}/>
   }
 
   _openAggregatePage = (aggregate) => {
@@ -283,32 +341,36 @@ class RemovableRow extends Component {
   );
 
 
-  _renderModalContent = (dashlet) => (
+ _renderModalContent = (data) => (
     <View style={styles.modalContent}>
-      <Image source={ require('../images/ds.jpg')} style={styles.modalImage} />
-      <Text>total Storage avalible</Text>
-      {this._renderButton({text: 'Close'}, () => this.setState({ visibleModal: false }))}
+      <Text style = {styles.text1}>{'Laste Update Time: '+ data.lastUpdate}</Text>
+      <Text style = {styles.text1}>{'System Model: '+ data.model}</Text>
+      <Text style = {styles.text1}>{'Percentage of Storage Available: '+ data.percentAva}</Text>
+      <Text style = {styles.text1}>{'Total Storage Available: '+ data.totalAva}</Text>
+      <Text style = {styles.text1}>{'Average Write Speed: '+ data.writeSpeed}</Text>
+      <Text style = {styles.text1}>{'Average Read Speed: '+ data.readSpeed}</Text>
+      {this._renderButton({text: 'Close'}, () => this.setState({ visibleModal: null }))}
     </View>
   );
 
-  _renderCloseWindow = (dashlet, updateFunc) => (
+  _renderCloseWindow = (data, updateFunc) => (
     <View style={styles.modalContent}>
       <Text>Remove Dashlet?</Text>
       <View style={{width: 100, height: 50}}>
-            {this._renderButton({text: 'Yes'}, () => this._onRemove(dashlet, updateFunc))}
+            {this._renderButton({text: 'Yes'}, () => this._onRemove(data, updateFunc))}
             {this._renderButton({text: 'No'}, () => this.setState({ deleteModal: false }))}
       </View>
     </View>
   );
 
-  _onRemove (dashlet, updateFunc) {
+  _onRemove (data, updateFunc) {
       this.setState({deleteModal: false});
-      dashlet._setAsInactive();
+      data['active'] = false;
       updateFunc();
   }
 
   render() {
-    const { dashlet, active, key, updateFunc } = this.props;
+    const { data, active, key, updateFunc } = this.props;
       
     const swipeSettings = {
         autoClose: true,
@@ -331,10 +393,10 @@ class RemovableRow extends Component {
     return (
       <Animated.View style={[styles.row,this._style]}>
         <View style={styles.rowLeft}>
-            dashlet.view
-            {this._renderButton(dashlet, () => this.setState({ visibleModal: 1 }))}
-            <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent(dashlet)}</Modal>
-            <Modal isVisible={this.state.deleteModal === true}>{this._renderCloseWindow(dashlet, updateFunc)}</Modal>
+            <Image source={{ uri: data.image }} style={styles.image} />
+            {this._renderButton(data, () => this.setState({ visibleModal: 1 }))}
+            <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent(data)}</Modal>
+            <Modal isVisible={this.state.deleteModal === true}>{this._renderCloseWindow(data, updateFunc)}</Modal>
         </View>
         <Swipeout {...swipeSettings}>
             <View style={styles.rowRight}>

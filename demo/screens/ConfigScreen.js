@@ -14,59 +14,29 @@ import { WebBrowser } from 'expo';
 import '../data/accountData.js';
 import '../data/data.js';
 import '../data/dashlets.js';
+import {listData} from './HomeScreen.js';
+import SystemScreen from './SystemScreen'
 
 
 const window = Dimensions.get('window');
 
-// listData will be where the system data is organized.
-const listData = {
-  0: {
-    text: global.data[0]['companyName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-  1: {
-    text: global.data[0]['systemName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-  2: {
-    text: global.data[2]['companyName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-  3: {
-    text: global.data[3]['companyName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-  4: {
-    text: global.data[4]['companyName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-  5: {
-    text: global.data[5]['companyName'],
-    image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Transparent_X.png',
-  },
-};
-const systemData = {
-  0: {
-    text: global.data[0]['companyName'],
-  },
-  1: {
-    text: global.data[0]['systemName'],
-  },
-  2: {
-    text: global.data[2]['companyName'],
-  },
-  3: {
-    text: global.data[3]['companyName'],
-  },
-  4: {
-    text: global.data[4]['companyName'],
-  },
-  5: {
-    text: global.data[5]['companyName'],
-  },
-};
+var systemData = {};
+var count = 0;
+// Object.keys(global.data).forEach(function(key) {
+while (count<20){
+    tempDict = {};
+    tempDict["text"] = global.data[count]['systemName'];
+    tempDict["id"] = 0;
+    tempDict["active"] = true;
+    tempDict["test"] = 1;
 
-export default class Basic extends Component {
+    systemData[count] = tempDict;
+    count++;
+}
+// });
+
+
+export default class ConfigScreen extends Component {
   static navigationOptions = {
     title: 'Dashboard Configuration',
   };
@@ -105,7 +75,9 @@ export default class Basic extends Component {
     );
   }
   _displayModal = (key) => {
-    return
+    const { navigate } = this.props.navigation;
+    navigate('System', {systemindex: key});
+    //return <SystemScreen navigation = {this.props.navigation} systemindex = {key}/>
   }
   _renderRow = ({ data, active }) => {
     return <Row data={data} active={active} />
@@ -252,9 +224,6 @@ const styles = StyleSheet.create({
   image: {
     width: 20,
     height: 20,
-    // alignSelf: 'flex-end',
-    // justifyContent: 'center',
-    // alignItems: 'center',
     position: "absolute",
     bottom: 13,
     right: 10,

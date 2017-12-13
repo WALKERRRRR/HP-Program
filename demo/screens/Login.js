@@ -9,6 +9,7 @@ import ExportScreen from './ExportScreen';
 
 var usernameUpdate = '';
 var passwordUpdate = '';
+export {usernameUpdate};
 
 
 export default class LoginScreen extends Component {

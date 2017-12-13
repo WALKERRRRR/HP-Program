@@ -10,7 +10,7 @@ def contruct():
     for line in dic:
         # if rowCount == 250:
         #     break
-        if 'Zombie' or 'Lynx' in line:
+        if 'Zombie' in line or 'Lynx' in line:
             data.append({})
             entries = line.replace('"','').replace('\n','').split(',')
             colCount = 0
@@ -20,7 +20,7 @@ def contruct():
                     data[rowCount][dataHeaders[colCount].strip()] = entry
                     colCount += 1
             data[rowCount]['includeInAggregate'] = True
-            data[rowCount]['rowNumber'] = rowCount
+            # data[rowCount]['rowNumber'] = rowCount
             rowCount += 1
     return data
 
@@ -30,10 +30,19 @@ def isolateCompany(data):
             data.remove(entry)
     return data
 
+def addRowNumber(data):
+    n = 0
+    for entry in data:
+        entry['rowNumber'] = n
+        n += 1
+    return data
+
+
 if __name__ == '__main__':
     data = contruct()
     outfile = open('constructed-data-demo.js', 'w')
     outfile.write('global.data = ')
     data = isolateCompany(data)
+    data = addRowNumber(data)
     json.dump(data, outfile)
     outfile.close()

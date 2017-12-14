@@ -195,16 +195,16 @@ export default class SortableList extends Component {
       
     // Check for inactive dashlets currently on the list
     for (var key in data) {
-        if (data[key]['active'] == false) {
+        if (data[key].isActive() == false) {
             ind = order.indexOf(key);
             if (ind != -1) {
                 order.splice(ind, 1);  
             }
         }
     }
-    // Check for active dashlets not on the list add them to the end
-    for (key in data) {
-        if (data[key]['active'] == true && !order.includes(key)) {
+    // Check for active dashlets not on the list. add them to the end
+    for (var key in data) {
+        if (data[key].isActive() == true && !order.includes(key)) {
             order.push(key);
         }
     }
@@ -275,7 +275,7 @@ export default class SortableList extends Component {
           manuallyActivateRows={this.props.manuallyActivateRows}>
           {renderRow({
             key,
-            data: data[key],
+            dashlet: data[key],
             updateFunc: () => {this.forceUpdate()},
             disabled: !sortingEnabled,
             active,

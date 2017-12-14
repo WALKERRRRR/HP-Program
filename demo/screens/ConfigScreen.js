@@ -16,7 +16,6 @@ import '../data/data.js';
 import '../data/dashlets.js';
 //import {listData} from './HomeScreen.js';
 import SystemScreen from './SystemScreen'
-import './HomeScreen'
 
 
 const window = Dimensions.get('window');

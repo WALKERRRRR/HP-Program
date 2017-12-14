@@ -1,8 +1,30 @@
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  Dimensions,
+  Platform,
+} from 'react-native';
+
+import Template from './DashletTemplate.js'
+
+const template = new Template()
+
 class Dashlet {
-    constructor(name, view, active) {
-        this.name = name;
-        this.view = view;
+    constructor(text, active, dataFunc, systems, viewFunc) {
+        this.text = text;
         this.active = active;
+        this._dataFunc = (sys) => dataBuilder(sys);
+        // Set the data needed to render the chart
+        this.data = dataFunc(systems);
+        // Now we can make the view
+        this._viewFunc = () => viewFunc(this.data);
+    }
+    
+    _setData(systems) {
+        return 1;
     }
     
     _setAsActive() {
@@ -19,25 +41,30 @@ class Dashlet {
 }
 
 
-class DashletManager {
-    constructor(data) {
+export default class DashletManager {
+    
+    constructor(systems) {
         // Rebuild all of the dashlets
         this.dashlets = {
             // Dashlet 1
-            "0": new Dashlet('Dashlet 1',
-                        <View><Text>This is some text</Text></View>,
-                         true
-                        ),
+            "0": new Dashlet(text='Drives by Region',
+                            active=true,
+                            dataFunc = (sys) => template._drivesByRegionData(sys),
+                            systems=systems,
+                            viewFunc = (data) => template._drivesByRegionChart(data)),
             // Dashlet 2
-            "1": new Dashlet('Dashlet 2',
-                        <View><Text>This is some text</Text></View>,
-                         true
-                        ),
+            "1": new Dashlet(text='Drives by Region 2',
+                            active=true,
+                            dataFunc = (sys) => template._drivesByRegionData(sys),
+                            systems=systems,
+                            viewFunc = (data) => template._drivesByRegionChart(data)),
             // Dashlet 3
-            "2": new Dashlet('Dashlet 3',
-                        <View><Text>This is some text</Text></View>,
-                         true
-                        )
+            "2": new Dashlet(text='Drives by Region 3',
+                            active=true,
+                            dataFunc = (sys) => template._drivesByRegionData(sys),
+                            systems=systems,
+                            viewFunc = (data) => template._drivesByRegionChart(data)),
+            
             // Dashlet 4, etc
         };
     }
@@ -49,17 +76,17 @@ class DashletManager {
     
     // get all dashlets
     _getDashlets() {
-        return this.dashlets();
+        return this.dashlets;
     }
     
     // Function to get active Dashlets
     
     // Function to get inactive Dashlets
-    _getInActiveDashlets() {
+    _getInactiveDashlets() {
         inactive = {}
         for (var key in this.dashlets) {
             if (this.dashlets[key].active == false) {
-                inactive[key] = this.dashlets[key];
+                inactive[key] = this.dashlets[key].text;
             }
         }
         return inactive;

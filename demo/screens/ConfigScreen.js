@@ -13,15 +13,10 @@ import SortableList from '../components/my-sortable-list/src/SortableList.js';
 import { WebBrowser } from 'expo';
 import '../data/accountData.js';
 import '../data/data.js';
-import '../data/dashlets.js';
-//import {listData} from './HomeScreen.js';
 import SystemScreen from './SystemScreen'
 
-
-const window = Dimensions.get('window');
 global.systemindex = 0;
 //var listData = global.listData;
-
 var systemData = {};
 var count = 0;
 // Object.keys(global.data).forEach(function(key) {
@@ -57,10 +52,8 @@ export default class ConfigScreen extends Component {
     title: 'My Systems',
   };
   render() {
-    console.log("----------------------------")
-    console.log(global.listData);
-    var listData = global.listData;
-    console.log(listData);
+    var listData = global.accountData;
+    //console.log(listData);
     return (
       <View style={styles.container}>
           <SortableList

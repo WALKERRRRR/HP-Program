@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
+import './data/data.js'
 import Login from './screens/Login';
 import RootNavigation from './navigation/RootNavigation';
 

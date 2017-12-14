@@ -18,9 +18,9 @@ class Dashlet {
         this.active = active;
         this._dataFunc = (sys) => dataBuilder(sys);
         // Set the data needed to render the chart
-        this.data = dataFunc(systems);
+        this.plotData = dataFunc(systems);
         // Now we can make the view
-        this._viewFunc = () => viewFunc(this.data);
+        this._viewFunc = () => viewFunc(this.plotData);
     }
     
     _setData(systems) {
@@ -44,33 +44,34 @@ class Dashlet {
 export default class DashletManager {
     
     constructor(systems) {
+        usable = systems.filter(x => x['includeInAggregate'] == true);
         // Rebuild all of the dashlets
         this.dashlets = {
             // Dashlet 1
             "0": new Dashlet(text='Drives by Region',
                             active=true,
                             dataFunc = (sys) => template._drivesByRegionData(sys),
-                            systems=systems,
-                            viewFunc = (data) => template._drivesByRegionChart(data)),
+                            systems=usable,
+                            viewFunc = (d) => template._drivesByRegionChart(d)),
             // Dashlet 2
             "1": new Dashlet(text='Drives by Region 2',
                             active=true,
                             dataFunc = (sys) => template._drivesByRegionData(sys),
-                            systems=systems,
-                            viewFunc = (data) => template._drivesByRegionChart(data)),
+                            systems=usable,
+                            viewFunc = (d) => template._drivesByRegionChart(d)),
             // Dashlet 3
             "2": new Dashlet(text='Drives by Region 3',
                             active=true,
                             dataFunc = (sys) => template._drivesByRegionData(sys),
-                            systems=systems,
-                            viewFunc = (data) => template._drivesByRegionChart(data)),
+                            systems=usable,
+                            viewFunc = (d) => template._drivesByRegionChart(d)),
             
             // Dashlet 4, etc
         };
     }
     
     // Function to update the dashlets based on new data
-    _updateDashlets(data) {
+    _updateDashlets(d) {
         return 1;
     }
     

@@ -24,7 +24,6 @@ export default class LoginScreen extends Component {
 
 
   render() {
-    console.log(global.data);
     const { navigate } = this.props.navigation;
      let hpe_pic = {
        uri: 'https://cdn.comparethecloud.net/wp-content/uploads/2017/02/HPE-Unveils-Its-New-Converged-IoT-1.jpg'

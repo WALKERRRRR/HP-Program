@@ -195,7 +195,7 @@ export default class SortableList extends Component {
       
     // Check for inactive dashlets currently on the list
     for (var key in data) {
-        if (data[key].isActive() == false) {
+        if (data[key]._isActive() == false) {
             ind = order.indexOf(key);
             if (ind != -1) {
                 order.splice(ind, 1);  
@@ -204,7 +204,7 @@ export default class SortableList extends Component {
     }
     // Check for active dashlets not on the list. add them to the end
     for (var key in data) {
-        if (data[key].isActive() == true && !order.includes(key)) {
+        if (data[key]._isActive() == true && !order.includes(key)) {
             order.push(key);
         }
     }

@@ -23,26 +23,31 @@ export default class Template {
     */
 
     _drivesByRegionData (systems) {
-        data = {}
+        filtered = systems.map(x => x['location.region']);
+        console.log(filtered);
+        plotdata = {}
         for (var key in systems) {
             if (systems[key]['includeInAggregate'] == true) {
                 region = systems[key]['location.region'];
-                data[region] += 1;   
+                plotdata[region] += 1;   
             }
         }
-        return Object.keys(data).map((value, index) => {value});
+        return Object.keys(plotdata).map((value, index) => {value});
     };
 
-    _drivesByRegionChart(data) {
-        <View style={{flex: 1, alignItems: 'center'}}>
-            <Text>Drives by Region</Text>
-            <Chart
-                style={styles.chart}
-                data={data}
-                type={'pie'}
-                showDataPoint={true}
-            />
-        </View>
+    _drivesByRegionChart(plotdata) {
+        console.log(plotdata);
+        return (
+            <View style={{height: 200, width: 200, alignItems: 'center'}}>
+                <Text>Drives by Region</Text>
+                <Chart
+                    style={styles.chart}
+                    data={plotdata}
+                    type={'pie'}
+                    showDataPoint={true}
+                />
+            </View>
+        );
     }; 
     
 }

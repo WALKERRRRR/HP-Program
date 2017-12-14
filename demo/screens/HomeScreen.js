@@ -42,11 +42,8 @@ import SortableList from '../components/my-sortable-list/src/SortableList.js';
 import Swipeout from '../components/my-swipeout/dist/index.js';
 import Modal from '../components/react-native-modal/src/index.js';
 import DashletManager from '../components/dashboard/DashletManager.js';
-//import '../data/accountData.js';
 
 const window = Dimensions.get('window');
-
-var DashManager = new DashletManager({});
 
 export default class Dashboard extends Component {  
     
@@ -58,7 +55,7 @@ export default class Dashboard extends Component {
         activeRowKey: null,
         addDashlet: false,
         toAdd: null,
-        manager: new DashletManager([]),
+        manager: new DashletManager(global.accountData),
   };
   
   // Button to Add Dashlets to the Board
@@ -220,8 +217,7 @@ class RemovableRow extends Component {
 
   _renderModalContent = (dashlet) => (
     <View style={styles.modalContent}>
-      <Image source={ require('../images/ds.jpg')} style={styles.modalImage} />
-      <Text>total Storage avalible</Text>
+      <dashlet._viewFunc/>
       {this._renderButton({text: 'Close'}, () => this.setState({ visibleModal: false }))}
     </View>
   );
@@ -265,7 +261,7 @@ class RemovableRow extends Component {
     return (
       <Animated.View style={[styles.row,this._style]}>
         <View style={styles.rowLeft}>
-            <dashlet.view/>
+            <Image style={styles.image} source={{uri: 'https://cdn4.iconfinder.com/data/icons/database/PNG/512/Database_4.png'}}/>
             {this._renderButton(dashlet, () => this.setState({ visibleModal: 1 }))}
             <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent(dashlet)}</Modal>
             <Modal isVisible={this.state.deleteModal === true}>{this._renderCloseWindow(dashlet, updateFunc)}</Modal>

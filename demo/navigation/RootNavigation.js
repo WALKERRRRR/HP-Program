@@ -2,13 +2,29 @@ import { Notifications } from 'expo';
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
+import ExportScreen from '../screens/ExportScreen';
+import ConfigScreen from '../screens/ConfigScreen';
+import SystemScreen from '../screens/SystemScreen';
+import LoginScreen from '../screens/Login';
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
   {
+    Login: {
+      screen: LoginScreen,
+    },
     Main: {
       screen: MainTabNavigator,
+    },
+    Export: {
+      screen: ExportScreen,
+    },
+    Config: {
+      screen: ConfigScreen,
+    },
+    System: {
+      screen: SystemScreen,
     },
   },
   {
@@ -21,6 +37,7 @@ const RootStackNavigator = StackNavigator(
 );
 
 export default class RootNavigator extends React.Component {
+
   componentDidMount() {
     this._notificationSubscription = this._registerForPushNotifications();
   }

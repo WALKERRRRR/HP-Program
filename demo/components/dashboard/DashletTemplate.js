@@ -24,28 +24,30 @@ export default class Template {
 
     _drivesByRegionData (systems) {
         filtered = systems.map(x => x['location.region']);
-        console.log(filtered);
+        
         plotdata = {}
-        for (var key in systems) {
-            if (systems[key]['includeInAggregate'] == true) {
-                region = systems[key]['location.region'];
-                plotdata[region] += 1;   
+        for (x in filtered) {
+            if (typeof plotdata[filtered[x]] == 'undefined') {
+                plotdata[filtered[x]] = 0;
             }
+            plotdata[filtered[x]] += 1;   
         }
-        return Object.keys(plotdata).map((value, index) => {value});
+        return Object.keys(plotdata).map(x => [x, plotdata[x]]);
     };
 
     _drivesByRegionChart(plotdata) {
         console.log(plotdata);
         return (
-            <View style={{height: 200, width: 200, alignItems: 'center'}}>
+            <View style={{height: 200, width: 400, alignItems: 'center'}}>
                 <Text>Drives by Region</Text>
                 <Chart
                     style={styles.chart}
                     data={plotdata}
                     type={'pie'}
-                    showDataPoint={true}
+                    showAxis={false}
+                    tightBounds={true}
                 />
+                <Text></Text>
             </View>
         );
     }; 
@@ -73,10 +75,13 @@ const styles = StyleSheet.create({
   },
     
   chart: {
-    width: 100,
-    height: 100,
-    marginRight: 30,
+    width: 200,
+    height: 200,
+    
     borderRadius: 3,
+    borderColor: 'red', 
+    borderWidth: 2,
+    alignItems: 'center'
   },
 
 });
